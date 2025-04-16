@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+import './Register.css';
 
 const Register = () => {
-  return (
-    <div>
-        <h1>Cadastro</h1>
-    </div>
-  )
-}
+  const [isOpen, setIsOpen] = useState(false);
 
-export default Register
+  return (
+    <h1>Cadastro</h1>
+  );
+};
+
+export default Register;
