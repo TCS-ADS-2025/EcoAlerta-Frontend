@@ -1,54 +1,78 @@
 import React from "react";
-import logo from "../../assets/logo-sem-fundo.jpg";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "./Login.css";
+import logo from "../../assets/logo-sem-fundo.jpg";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   return (
-    <div className="container-fluid vh-100 d-flex p-0">
-      <div className="row flex-grow-1">
-        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center left-side">
-          <h1 className="mb-3">Bem-Vindo!</h1>
+    <Container fluid className="vh-100 d-flex p-0">
+      <Row className="flex-grow-1">
+        <Col
+          md={6}
+          className="d-flex flex-column justify-content-center align-items-center"
+          id="left-side"
+        >
+          <h1>Bem-Vindo!</h1>
           <p className="text-center px-5">
             Sistema de notificação e conscientização da coleta seletiva
           </p>
-        </div>
+        </Col>
 
-        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center right-side">
-          <img src={logo} alt="Eco Alerta logo" className="logo" />
+        <Col
+          md={6}
+          className="d-flex flex-column justify-content-center align-items-center"
+          id="right-side"
+        >
+          <div
+            id="container-form"
+            className="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img id="logo" src={logo} alt="Eco Alerta logo" />
+            <h2 className="text-center mb-3">Login</h2>
+            <Form id="register-form" onSubmit={handleSubmit}>
+              <Form.Group className="mb-3 form-group" controlId="email">
+                <i className="bi bi-envelope top-50 start-0 translate-middle-y ms-3"></i>
+                <Form.Control
+                  className="ps-5 campos"
+                  type="email"
+                  placeholder="E-mail"
+                  name="email"
+                />
+              </Form.Group>
 
-          <h2 className="mb-4">Login</h2>
+              <Form.Group className="mb-4 form-group" controlId="senha">
+                <i className="bi bi-lock top-50 start-0 translate-middle-y ms-3"></i>
+                <Form.Control
+                  className="ps-5 campos"
+                  type="password"
+                  placeholder="Senha"
+                  name="senha"
+                />
+              </Form.Group>
 
-          <form className="login-form">
-            <div className="form-group mb-3 position-relative">
-              <i className="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-              <input
-                type="email"
-                className="form-control ps-5"
-                placeholder="E-mail"
-              />
-            </div>
+              <div className="d-flex justify-content-around mb-4 links">
+                <a href="register">Cadastrar-se</a>
+                <a href="#">Esqueci minha senha</a>
+              </div>
 
-            <div className="form-group mb-3 position-relative">
-              <i className="bi bi-lock position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-              <input
-                type="password"
-                className="form-control ps-5"
-                placeholder="Senha"
-              />
-            </div>
-
-            <div className="d-flex justify-content-around mb-3 links">
-              <a href="#">Cadastrar-se</a>
-              <a href="#">Esqueci minha senha</a>
-            </div>
-            <button type="button" className="btn btn-success login-button">
-              Entrar
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+              <div className="d-flex justify-content-center">
+                <Button className="btn btn-success" type="submit">
+                  Entrar
+                </Button>
+              </div>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
