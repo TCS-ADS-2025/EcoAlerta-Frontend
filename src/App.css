@@ -6,10 +6,6 @@
   font-family: 'Poppins', sans-serif; 
 }
 
-.app-container {
-  padding-top: 70px; 
-}
-
 /* Navbar */
 .navbar {
   position: fixed;
