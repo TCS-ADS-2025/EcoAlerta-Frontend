@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+
 import Adm from "./components/adm-page/Adm";
 import Coment from "./components/coment-page/coment";
 import Home from "./components/home-page/Home";
 import Login from "./components/login-page/Login";
-import Register from "./components/register-page/register";
+import Register from "./components/register-page/Register";
 import Timeline from "./components/timeline-page/timeline";
-import logo from "./assets/Eco_logo.png";
+
 import "./App.css";
+import logo from "./assets/Eco_logo.png";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
