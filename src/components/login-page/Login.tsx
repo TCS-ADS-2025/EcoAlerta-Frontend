@@ -50,7 +50,7 @@ const Login = (): ReactElement => {
         <Col
           md={6}
           className="d-flex flex-column justify-content-center align-items-center"
-          id="left-side"
+          id="left-side-login"
         >
           <h1>Bem-Vindo!</h1>
           <p className="text-center px-5">
@@ -61,10 +61,10 @@ const Login = (): ReactElement => {
         <Col
           md={6}
           className="d-flex flex-column justify-content-center align-items-center"
-          id="right-side"
+          id="right-side-login"
         >
           <div
-            id="container-form"
+            id="login-form"
             className="d-flex flex-column justify-content-center align-items-center"
           >
             <img id="logo" src={logo} alt="Eco Alerta logo" />
@@ -73,7 +73,7 @@ const Login = (): ReactElement => {
               <Form.Group className="mb-3 form-group" controlId="email">
                 <i className="bi bi-envelope top-50 start-0 translate-middle-y ms-3"></i>
                 <Form.Control
-                  className="ps-5 campos"
+                  className="ps-5 login-campos"
                   type="email"
                   placeholder="E-mail"
                   name="email"
@@ -85,7 +85,7 @@ const Login = (): ReactElement => {
               <Form.Group className="mb-4 form-group" controlId="senha">
                 <i className="bi bi-lock top-50 start-0 translate-middle-y ms-3"></i>
                 <Form.Control
-                  className="ps-5 campos"
+                  className="ps-5 login-campos"
                   type="password"
                   placeholder="Senha"
                   name="senha"
@@ -100,7 +100,7 @@ const Login = (): ReactElement => {
               </div>
 
               <div className="d-flex justify-content-center">
-                <Button className="btn btn-success" type="submit">
+                <Button className="login-form-btn btn-success" type="submit">
                   Entrar
                 </Button>
               </div>
