@@ -1,15 +1,47 @@
-import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { Form, Button, Row, Col, Container } from "react-bootstrap";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Form, Button, Row, Col, Container, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import api from "../../service/api";
+import { estaAutenticado, login } from "../../service/auth";
+import { LoginData } from "./../../interface/LoginData";
 import "./Login.css";
 import logo from "../../assets/logo-sem-fundo.jpg";
 
-const Login = () => {
+const Login = (): ReactElement => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState<LoginData>({ email: "", senha: "" });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (estaAutenticado()) {
+      navigate("/");
+    }
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/");
+    try {
+      const endpoint = "/auth/login";
+      const method = "post";
+
+      const response = await api[method](endpoint, formData);
+
+      if ([200, 201].includes(response.status)) {
+        const token = response.data.token;
+        login(token);
+        alert(`Login realizado com sucesso!`);
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Erro ao realizar login:", err);
+    }
   };
 
   return (
@@ -45,6 +77,8 @@ const Login = () => {
                   type="email"
                   placeholder="E-mail"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </Form.Group>
 
@@ -55,6 +89,8 @@ const Login = () => {
                   type="password"
                   placeholder="Senha"
                   name="senha"
+                  value={formData.senha}
+                  onChange={handleChange}
                 />
               </Form.Group>
 
