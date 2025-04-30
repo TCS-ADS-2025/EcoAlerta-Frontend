@@ -1,4 +1,5 @@
 import React from 'react'
+import "./Adm.css"
 
 const Adm = () => {
   return (
