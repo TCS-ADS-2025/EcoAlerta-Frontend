@@ -11,20 +11,25 @@
   font-size: 20px;
 }
 
+#right-side-login {
+  overflow: hidden;
+}
+
 #right-side-login h2 {
   font-size: 40px;
   font-weight: 600;
 }
 
 #login-form {
-  max-width: 380px;
+  max-width: 350px;
   width: 100%;
+  padding-bottom: 30px;
 }
 
 #logo {
-  width: 300px;
-  height: 300px;
-  margin-bottom: 20px;
+  max-width: 100%;
+  width: 250px;
+  height: auto;
 }
 
 #login-form .login-campos {

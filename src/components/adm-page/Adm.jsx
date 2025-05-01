@@ -1,11 +1,16 @@
-import React from 'react'
+import Header from "../Header/Header";
+import Footer from "../footer/Footer";
 
 const Adm = () => {
   return (
-    <div>
-      <h1>ADM</h1>
-    </div>
-  )
-}
+    <>
+      <Header />
+      <div className="d-flex flex-column min-vh-100">
+        <h1>Adm</h1>
+      </div>
+      <Footer />
+    </>
+  );
+};
 
 export default Adm

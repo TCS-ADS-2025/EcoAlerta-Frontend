@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Row, Col, Container } from "react-bootstrap";
-import Select from "react-select";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 import api from "../../service/api";
 import { cadastro } from "../../service/auth";
@@ -10,6 +9,8 @@ import { UserData } from "../../interface/UserData";
 import { BairroData } from "../../interface/BairroData";
 
 import "./Register.css";
+import Header from "../Header/Header";
+import Footer from "../footer/Footer";
 
 const Cadastro = (): ReactElement => {
   const navigate = useNavigate();
@@ -72,21 +73,24 @@ const Cadastro = (): ReactElement => {
   };
 
   return (
-    <Container fluid className="min-vh-100 d-flex p-0">
-      <Row className="flex-grow-1">
+    <div className="d-flex flex-column min-vh-100">
+      <Header />
+      <Row className="flex-grow-1 mt-0">
         <Col
+          xs={12}
           md={6}
           className="d-flex flex-column justify-content-center align-items-center"
           id="left-side-register"
         >
           <h1>Bem-Vindo!</h1>
-          <p className="text-center px-5">
+          <p className="text-center px-3 px-md-5">
             Cadastre-se para ser lembrado semanalmente a retirar seu lixo
             reciclável
           </p>
         </Col>
 
         <Col
+          xs={12}
           md={6}
           className="d-flex flex-column justify-content-center align-items-center"
           id="right-side-register"
@@ -232,7 +236,8 @@ const Cadastro = (): ReactElement => {
           </div>
         </Col>
       </Row>
-    </Container>
+      <Footer />
+    </div>
   );
 };
 
