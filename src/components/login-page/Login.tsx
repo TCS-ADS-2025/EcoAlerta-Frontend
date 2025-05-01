@@ -1,11 +1,15 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { Form, Button, Row, Col, Container, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
+
 import api from "../../service/api";
 import { estaAutenticado, login } from "../../service/auth";
 import { LoginData } from "./../../interface/LoginData";
+
 import "./Login.css";
-import logo from "../../assets/logo-sem-fundo.jpg";
+import logo from "../../assets/logo-verde-sem-fundo.png";
+import Header from "../Header/Header";
+import Footer from "../footer/Footer";
 
 const Login = (): ReactElement => {
   const navigate = useNavigate();
@@ -45,26 +49,29 @@ const Login = (): ReactElement => {
   };
 
   return (
-    <Container fluid className="vh-100 d-flex p-0">
-      <Row className="flex-grow-1">
+    <div className="d-flex flex-column min-vh-100">
+      <Header />
+      <Row className="flex-grow-1 mt-0">
         <Col
+          xs={12}
           md={6}
           className="d-flex flex-column justify-content-center align-items-center"
-          id="left-side"
+          id="left-side-login"
         >
           <h1>Bem-Vindo!</h1>
-          <p className="text-center px-5">
+          <p className="text-center px-3 px-md-5">
             Sistema de notificação e conscientização da coleta seletiva
           </p>
         </Col>
 
         <Col
+          xs={12}
           md={6}
           className="d-flex flex-column justify-content-center align-items-center"
-          id="right-side"
+          id="right-side-login"
         >
           <div
-            id="container-form"
+            id="login-form"
             className="d-flex flex-column justify-content-center align-items-center"
           >
             <img id="logo" src={logo} alt="Eco Alerta logo" />
@@ -73,7 +80,7 @@ const Login = (): ReactElement => {
               <Form.Group className="mb-3 form-group" controlId="email">
                 <i className="bi bi-envelope top-50 start-0 translate-middle-y ms-3"></i>
                 <Form.Control
-                  className="ps-5 campos"
+                  className="ps-5 login-campos"
                   type="email"
                   placeholder="E-mail"
                   name="email"
@@ -85,7 +92,7 @@ const Login = (): ReactElement => {
               <Form.Group className="mb-4 form-group" controlId="senha">
                 <i className="bi bi-lock top-50 start-0 translate-middle-y ms-3"></i>
                 <Form.Control
-                  className="ps-5 campos"
+                  className="ps-5 login-campos"
                   type="password"
                   placeholder="Senha"
                   name="senha"
@@ -100,7 +107,7 @@ const Login = (): ReactElement => {
               </div>
 
               <div className="d-flex justify-content-center">
-                <Button className="btn btn-success" type="submit">
+                <Button className="login-form-btn btn-success" type="submit">
                   Entrar
                 </Button>
               </div>
@@ -108,7 +115,8 @@ const Login = (): ReactElement => {
           </div>
         </Col>
       </Row>
-    </Container>
+      <Footer />
+    </div>
   );
 };
 

@@ -1,50 +1,51 @@
-#left-side {
+#left-side-register {
   background-color: #95a868;
   color: white;
 }
 
-#left-side h1 {
+#left-side-register h1 {
   font-weight: 500;
 }
 
-#left-side p {
+#left-side-register p {
   font-size: 20px;
 }
 
-#right-side h2 {
-  font-size: 40px;
+#right-side-register {
+  overflow: hidden;
+}
+
+#right-side-register h2 {
+  font-size: 35px;
   font-weight: 600;
 }
 
 #register-form {
-  max-width: 440px;
+  max-width: 380px;
   width: 100%;
 }
 
-.campos {
+#register-form .register-campos {
   background-color: #f1f5f4;
-  height: 50px;
+  height: 42px;
   border-radius: 40px;
+  font-size: 15px;
 }
 
-.campos::placeholder {
-  color: #a0a0a0;
-}
-
-.campos input {
+#register-form .register-campos input {
   padding-inline-start: 5px;
 }
 
-.form-group {
+#register-form .form-group {
   position: relative;
 }
 
-.bi {
+#register-form .bi {
   position: absolute;
   color: #a0a0a0;
 }
 
-.btn {
+#register-form .btn {
   font-size: 20px;
   background-color: #95a868;
   font-weight: 500;
