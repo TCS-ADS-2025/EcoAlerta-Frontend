@@ -1,11 +1,16 @@
-import React from 'react'
+import Header from "../Header/Header";
+import Footer from "../footer/Footer";
 
 const Timeline = () => {
   return (
-    <div>
+    <>
+      <Header />
+      <div className="d-flex flex-column min-vh-100">
         <h1>Cronograma</h1>
-    </div>
-  )
-}
+      </div>
+      <Footer />
+    </>
+  );
+};
 
-export default Timeline
+export default Timeline;
