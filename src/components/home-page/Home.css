@@ -1,7 +1,236 @@
-.btn {
-    width: 100px;
+.section-1 {
+  width: 100%;
+  gap: 2rem;
 
-    display: flex;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.container-section-1 p {
+  color: #e3c643;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.span-group {
+  color: white;
+  font-weight: bold;
+  height: 50px;
+  font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+#span-yellow {
+  background-color: #e3c643;
+  border-radius: 20px;
+  width: 100px;
+}
+
+.span-brown {
+  background-color: #774743;
+  border-radius: 20px;
+  width: 200px;
+}
+
+#span-blue {
+  background-color: #5d71a3;
+  border-radius: 20px;
+  width: 250px;
+}
+
+#coleta-image {
+  max-width: 90%;
+  width: 100%;
+  height: auto;
+}
+
+/*Container 2*/
+
+#container-2 {
+  background-color: #95a868;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#container-2 > .card-grid {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+#span-brown-2 {
+  margin-top: 2rem;
+  width: 170px;
+  height: 70px;
+  border-radius: 40px;
+
+  display: flex;
+  text-align: center;
+}
+
+.card-grid {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.card-green {
+  width: 350px;
+  background-color: #95a868;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+.card-image {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.card-grid .card-body {
+  color: #774743;
+}
+
+.card-grid .card-title {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+/*Container 3*/
+
+#container-3 {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.banner {
+  width: 300px;
+  height: 500px;
+  background-color: #774743;
+  color: #e3c643;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  padding: 2rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+}
+
+.icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-grid-2 {
+  gap: 1.5rem;
+  padding: 5rem;
+  width: 100%;
+  max-width: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  display: grid;
+  text-align: center;
+}
+
+.card-2 {
+  border: none;
+}
+
+/*responsividade*/
+
+.card-grid,
+.card-grid-2 {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .section-1 {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .container-section-1 p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+
+  .card-grid {
+    flex-direction: column;
     align-items: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
+  }
+
+  .card-green {
+    width: 90%;
+  }
+
+  #container-3 {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .banner {
+    width: 90%;
+    height: auto;
+    clip-path: none;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .card-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 1rem;
+  }
+
+  .span-group {
+    font-size: 16px;
+    height: 40px;
+  }
+
+  #span-yellow,
+  #span-blue,
+  .span-brown {
+    width: auto;
+    padding: 0 1rem;
+  }
+
+  #coleta-image {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .card-grid {
+    gap: 3rem;
+    padding: 2rem;
+    justify-content: center;
+  }
 }
