@@ -1,7 +1,6 @@
 .main-container-1 {
   width: 100%;
   height: 100%;
-  margin-top: 50px;
   background-color: #f6f8ee;
 
   display: flex;
@@ -21,7 +20,8 @@
 }
 
 .welcome-title {
-  margin: 35px 10px;
+  margin-top: 100px;
+  margin-bottom: 50px;
 
   display: flex;
   flex-direction: row;
@@ -29,7 +29,7 @@
   justify-content: center;
 }
 
-.welcome-title h2 {
+.welcome-title h1 {
   color: #94aa24;
   font-weight: bold;
   padding-left: 20px;
@@ -82,6 +82,8 @@ span {
   height: 70px;
 }
 
+/* Container 2*/
+
 .main-container-2 {
   width: 100%;
   height: 100%;
@@ -95,26 +97,50 @@ span {
 .main-container-2 h2 {
   color: #94aa24;
   font-weight: bold;
+  margin-top: 40px;
 }
 
-.advices-title {
+.notice-title {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.advices-title img {
+.notice-title img {
   height: 40px;
   padding-left: 10px;
-  margin-bottom: 8px;
+  margin-top: 20px;
 }
 
-.advice-card .card-body {
+.notice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 40px 0px;
+  gap: 120px;
+}
+
+.notice-card .card-body {
   background-color: #f6f8ee;
+  color: #95a868;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 20px;
+  text-align: center;
+
+  width: 350px;
+  height: 300px;
+}
+
+.notice-card img {
+  height: 70px;
+  margin: 20px 0px;
 }
 
 .btn-card {
   background-color: #95a868;
+  color: #fcc94f;
   width: 200px;
+  height: 60px;
+  border-radius: 20px;
 }
