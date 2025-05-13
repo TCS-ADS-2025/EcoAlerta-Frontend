@@ -7,20 +7,40 @@ import Footer from "../footer/Footer";
 
 import "./Timeline.css";
 
-const Timeline = (): ReactElement => {
-  const [formData, setFormData] = useState<CronogramaData>({
-    id: "",
-    diaSemana: " ",
-    bairros: [],
-  });
+const diasSemana = [
+  { api: "SEGUNDA", label: "Segunda-feira" },
+  { api: "TERCA", label: "Terça-feira" },
+  { api: "QUARTA", label: "Quarta-feira" },
+  { api: "QUINTA", label: "Quinta-feira" },
+  { api: "SEXTA", label: "Sexta-feira" },
+  { api: "SABADO", label: "Sábado" },
+  { api: "DOMINGO", label: "Domingo" },
+];
 
-  const [cronogramas, setCronogrmas] = useState<CronogramaData[]>([]);
+const Timeline = (): ReactElement => {
+  const [cronogramas, setCronogramas] = useState<Record<string, Bairro[]>>({});
 
   useEffect(() => {
     const fetchCronogramas = async () => {
       try {
-        const response = await api.get("/cronogramas/listar");
-        setCronogrmas(response.data);
+        const response = await api.get<CronogramaData[]>("/cronogramas/listar");
+        console.log("Dados recebidos:", response.data);
+
+        const dadosAgrupados: Record<string, Bairro[]> = {};
+        diasSemana.forEach((dia) => {
+          dadosAgrupados[dia.label] = [];
+        });
+
+        response.data.forEach((item) => {
+          const diaEncontrado = diasSemana.find(
+            (d) => d.api === item.diaSemana.toUpperCase()
+          );
+          if (diaEncontrado) {
+            dadosAgrupados[diaEncontrado.label].push(...item.bairros);
+          }
+        });
+
+        setCronogramas(dadosAgrupados);
       } catch (err) {
         console.error("Erro ao buscar cronogramas:", err);
       }
@@ -37,21 +57,25 @@ const Timeline = (): ReactElement => {
         <table>
           <thead>
             <tr>
-              {cronogramas.map((item) => (
-                <th key={item.id}>{item.diaSemana}</th>
+              {diasSemana.map((dia) => (
+                <th key={dia.api}>{dia.label}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             <tr>
-              {cronogramas.map((item) => (
-                <td key={item.id}>
+              {diasSemana.map((dia) => (
+                <td key={dia.api}>
                   <ul className="bairro-list">
-                    {item.bairros.map((bairro: Bairro) => (
-                      <li key={bairro.id} className="bairro-item">
-                        {bairro.nomeBairro}
-                      </li>
-                    ))}
+                    {cronogramas[dia.label]?.length ? (
+                      cronogramas[dia.label].map((bairro) => (
+                        <li key={bairro.id} className="bairro-item">
+                          {bairro.nomeBairro}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="bairro-item vazio">Nenhum bairro</li>
+                    )}
                   </ul>
                 </td>
               ))}
