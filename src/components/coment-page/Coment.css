@@ -1,0 +1,133 @@
+/* Estilos gerais */
+.main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Seção de input */
+  .input-1-section {
+    margin-bottom: 40px;
+  }
+  
+  .input-1-section h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .comment-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    resize: vertical;
+  }
+  
+  .submit-button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #1a2a3a;
+  }
+  
+  /* Seção de comentários */
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .sort-options button {
+    background: none;
+    border: none;
+    margin-left: 15px;
+    cursor: pointer;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .sort-options button.active {
+    color: #2c3e50;
+    font-weight: bold;
+  }
+  
+  /* Lista de comentários */
+  .comments-list {
+    margin-top: 20px;
+  }
+  
+  .comment-card {
+    padding: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .comment-card .comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .comment-likes {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-right: 15px;
+    font-size: 18px;
+  }
+  
+  .comment-name {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    flex-grow: 1;
+  }
+  
+  .comment-time {
+    color: #999;
+    font-size: 14px;
+  }
+  
+  .comment-text {
+    margin: 10px 0 0 0;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .main-container {
+      padding: 15px;
+    }
+    
+    .comment-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .sort-options {
+      margin-top: 10px;
+    }
+    
+    .sort-options button {
+      margin-left: 0;
+      margin-right: 15px;
+    }
+  }
