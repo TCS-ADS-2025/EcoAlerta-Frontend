@@ -54,6 +54,9 @@ const Timeline = (): ReactElement => {
       <Header />
 
       <div className="timeline-container">
+        <div className="timeline-title">
+          <h1>Coleta Seletiva - Criciúma-SC</h1>
+        </div>
         <table>
           <thead>
             <tr>
