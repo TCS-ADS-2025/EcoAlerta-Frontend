@@ -38,7 +38,7 @@
 .span-brown {
   background-color: #774743;
   border-radius: 20px;
-  width: 200px;
+  width: 210px;
 }
 
 #span-blue {
@@ -48,7 +48,7 @@
 }
 
 #coleta-image {
-  max-width: 90%;
+  max-width: 80%;
   width: 100%;
   height: auto;
 }
@@ -162,18 +162,31 @@
   border: none;
 }
 
-/*responsividade*/
-
 .card-grid,
 .card-grid-2 {
   width: 100%;
 }
 
-@media (max-width: 768px) {
+/*responsividade*/
+
+/* Celulares - até 767px */
+@media screen and (max-width: 767px) {
   .section-1 {
     flex-direction: column;
     text-align: center;
-    gap: 1rem;
+    padding: 1rem;
+  }
+
+  #span-yellow {
+    width: 120px;
+  }
+
+  .span-brown {
+    width: 170px;
+  }
+
+  #span-blue {
+    width: 200px;
   }
 
   .container-section-1 p {
@@ -181,37 +194,68 @@
     padding: 0 1rem;
   }
 
-  .card-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem 1rem;
+  #coleta-image {
+    width: 90%;
+    margin-top: 1.5rem;
+  }
+
+  .span-group {
+    font-size: 14px;
+    height: 36px;
+    margin-bottom: 0.3rem;
+  }
+
+  #container-2 .card-grid,
+  .card-grid-2 {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  #span-brown-2 {
+    width: 200px;
+  }
+
+  .card-green,
+  .card-2 {
+    width: 80%;
+    margin: 0 auto;
   }
 
   .card-green {
-    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .card-green .card-title {
+    font-size: 20px;
+  }
+
+  .card-green .card-text {
+    font-size: 15px;
   }
 
   #container-3 {
     flex-direction: column;
-    gap: 2rem;
-  }
-
-  .banner {
-    width: 90%;
-    height: auto;
-    clip-path: none;
-    border-radius: 1rem;
-    padding: 1.5rem;
-  }
-
-  .card-grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
     padding: 1rem;
   }
 
+  .banner {
+    margin-top: 30px;
+    width: 40%;
+    height: 270px;
+    padding: 1.5rem;
+  }
+
+  .banner .icon {
+    font-size: 2rem;
+  }
+}
+
+/* Tablets*/
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .span-group {
-    font-size: 16px;
+    font-size: 15px;
     height: 40px;
   }
 
@@ -222,15 +266,132 @@
     padding: 0 1rem;
   }
 
+  #span-yellow {
+    width: 100px;
+  }
+
+  .span-brown {
+    width: 150px;
+  }
+
+  #span-blue {
+    width: 200px;
+  }
+
+  .container-section-1 p {
+    font-size: 12px;
+    padding: 0 1rem;
+  }
+
   #coleta-image {
-    max-width: 100%;
+    width: 75%;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .card-grid .card-title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .card-grid .card-text {
+    font-size: 15px;
+  }
+
+  .card-green {
+    width: 85%;
+  }
+
+  #container-3 {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .banner {
+    margin-top: 30px;
+    width: 25%;
+    height: 350px;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+  }
+
+  .card-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .card-grid-2 .card {
+    width: 85%;
   }
 }
 
-@media (min-width: 2000px) {
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  #span-yellow {
+    width: 130px;
+  }
+
+  .span-brown {
+    width: 210px;
+  }
+
+  #span-blue {
+    width: 250px;
+  }
+
   .card-grid {
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    gap: 2rem;
     padding: 2rem;
-    justify-content: center;
+  }
+
+  #span-brown-2 {
+    width: 250px;
+  }
+
+  .card-green {
+    width: 95%;
+  }
+
+  .card-grid .card-title {
+    font-size: 25px;
+  }
+
+  .card-grid .card-text {
+    font-size: 15px;
+  }
+
+  .banner {
+    margin-left: 35px;
+    height: 450px;
+  }
+
+  #container-3 {
+    margin: 50px 0;
+  }
+
+  .card-grid-2 {
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Tvs */
+@media (min-width: 1200px) {
+  #span-brown-2 {
+    width: 250px;
+  }
+
+  .banner {
+    margin-left: 35px;
+    height: 450px;
   }
 }
