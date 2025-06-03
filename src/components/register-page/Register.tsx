@@ -9,7 +9,7 @@ import { UserData } from "../../interface/UserData";
 import { BairroData } from "../../interface/BairroData";
 
 import "./Register.css";
-import Header from "../Header/Header";
+import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
 const Cadastro = (): ReactElement => {

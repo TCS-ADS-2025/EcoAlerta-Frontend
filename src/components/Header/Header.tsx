@@ -6,17 +6,13 @@ import logo from "../../assets/logo-branca.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   return (
     <header>
       <nav className="navbar">
         <div className="navbar-content">
           <Link to="/" className="navbar-logo">
-            <img
-              src={logo}
-              alt="Eco Alerta Logo"
-              className="logo-img"
-            />
+            <img src={logo} alt="Eco Alerta Logo" className="logo-img" />
           </Link>
 
           <button
@@ -30,6 +26,13 @@ const Header = () => {
           </button>
 
           <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
+            <Link
+              to="/about"
+              className="nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Sobre Nós
+            </Link>
             <Link
               to="/"
               className="nav-link"

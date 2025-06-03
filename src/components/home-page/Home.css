@@ -1,7 +1,397 @@
-.btn {
-    width: 100px;
+.section-1 {
+  width: 100%;
+  gap: 2rem;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.container-section-1 p {
+  color: #e3c643;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.span-group {
+  color: white;
+  font-weight: bold;
+  height: 50px;
+  font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+#span-yellow {
+  background-color: #e3c643;
+  border-radius: 20px;
+  width: 100px;
+}
+
+.span-brown {
+  background-color: #774743;
+  border-radius: 20px;
+  width: 210px;
+}
+
+#span-blue {
+  background-color: #5d71a3;
+  border-radius: 20px;
+  width: 250px;
+}
+
+#coleta-image {
+  max-width: 80%;
+  width: 100%;
+  height: auto;
+}
+
+/*Container 2*/
+
+#container-2 {
+  background-color: #95a868;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#container-2 > .card-grid {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+#span-brown-2 {
+  margin-top: 2rem;
+  width: 170px;
+  height: 70px;
+  border-radius: 40px;
+
+  display: flex;
+  text-align: center;
+}
+
+.card-grid {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.card-green {
+  width: 350px;
+  background-color: #95a868;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+.card-image {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.card-grid .card-body {
+  color: #774743;
+}
+
+.card-grid .card-title {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+/*Container 3*/
+
+#container-3 {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.banner {
+  width: 300px;
+  height: 500px;
+  background-color: #774743;
+  color: #e3c643;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  padding: 2rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+}
+
+.icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-grid-2 {
+  gap: 1.5rem;
+  padding: 5rem;
+  width: 100%;
+  max-width: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  display: grid;
+  text-align: center;
+}
+
+.card-2 {
+  border: none;
+}
+
+.card-grid,
+.card-grid-2 {
+  width: 100%;
+}
+
+/*responsividade*/
+
+/* Celulares - até 767px */
+@media screen and (max-width: 767px) {
+  .section-1 {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  #span-yellow {
+    width: 120px;
+  }
+
+  .span-brown {
+    width: 170px;
+  }
+
+  #span-blue {
+    width: 200px;
+  }
+
+  .container-section-1 p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+
+  #coleta-image {
+    width: 90%;
+    margin-top: 1.5rem;
+  }
+
+  .span-group {
+    font-size: 14px;
+    height: 36px;
+    margin-bottom: 0.3rem;
+  }
+
+  #container-2 .card-grid,
+  .card-grid-2 {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  #span-brown-2 {
+    width: 200px;
+  }
+
+  .card-green,
+  .card-2 {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .card-green {
+    margin-bottom: 20px;
+  }
+
+  .card-green .card-title {
+    font-size: 20px;
+  }
+
+  .card-green .card-text {
+    font-size: 15px;
+  }
+
+  #container-3 {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .banner {
+    margin-top: 30px;
+    width: 40%;
+    height: 270px;
+    padding: 1.5rem;
+  }
+
+  .banner .icon {
+    font-size: 2rem;
+  }
+}
+
+/* Tablets*/
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .span-group {
+    font-size: 15px;
+    height: 40px;
+  }
+
+  #span-yellow,
+  #span-blue,
+  .span-brown {
+    width: auto;
+    padding: 0 1rem;
+  }
+
+  #span-yellow {
+    width: 100px;
+  }
+
+  .span-brown {
+    width: 150px;
+  }
+
+  #span-blue {
+    width: 200px;
+  }
+
+  .container-section-1 p {
+    font-size: 12px;
+    padding: 0 1rem;
+  }
+
+  #coleta-image {
+    width: 75%;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .card-grid .card-title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .card-grid .card-text {
+    font-size: 15px;
+  }
+
+  .card-green {
+    width: 85%;
+  }
+
+  #container-3 {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .banner {
+    margin-top: 30px;
+    width: 25%;
+    height: 350px;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+  }
+
+  .card-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .card-grid-2 .card {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  #span-yellow {
+    width: 130px;
+  }
+
+  .span-brown {
+    width: 210px;
+  }
+
+  #span-blue {
+    width: 250px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  #span-brown-2 {
+    width: 250px;
+  }
+
+  .card-green {
+    width: 95%;
+  }
+
+  .card-grid .card-title {
+    font-size: 25px;
+  }
+
+  .card-grid .card-text {
+    font-size: 15px;
+  }
+
+  .banner {
+    margin-left: 35px;
+    height: 450px;
+  }
+
+  #container-3 {
+    margin: 50px 0;
+  }
+
+  .card-grid-2 {
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Tvs */
+@media (min-width: 1200px) {
+  #span-brown-2 {
+    width: 250px;
+  }
+
+  .banner {
+    margin-left: 35px;
+    height: 450px;
+  }
 }

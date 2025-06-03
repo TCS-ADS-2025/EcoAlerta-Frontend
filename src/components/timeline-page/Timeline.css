@@ -1,0 +1,60 @@
+.timeline-container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeline-title {
+  height: 75px;
+  width: 65%;
+  margin-bottom: 10px;
+  border: 2px solid #474843;
+  background-color: #95a868;
+  color: white;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #474843;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+td {
+  background-color: #f0f2eb;
+  border: 1px solid #474843;
+  text-align: start;
+}
+
+th {
+  color: white;
+  background-color: #95a868;
+  border: 1px solid #474843;
+  padding: 12px;
+  text-align: center;
+}
+
+li {
+  list-style-type: none;
+}
+
+.bairro-list {
+  padding: 0;
+  margin: 0;
+}
+
+.bairro-item {
+  border-bottom: 1px solid #474843;
+  padding: 20px;
+}
