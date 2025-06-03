@@ -41,6 +41,20 @@ const Header = () => {
               Home
             </Link>
             <Link
+              to="/timeline"
+              className="nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Cronograma
+            </Link>
+            <Link
+              to="/coment"
+              className="nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Comentário
+            </Link>
+            <Link
               to="/register"
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
@@ -53,27 +67,6 @@ const Header = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Login
-            </Link>
-            <Link
-              to="/T3l4d0@dm"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Adm
-            </Link>
-            <Link
-              to="/coment"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Comentário
-            </Link>
-            <Link
-              to="/timeline"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Cronograma
             </Link>
           </div>
         </div>

@@ -236,7 +236,6 @@ const Cadastro = (): ReactElement => {
           </div>
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };
