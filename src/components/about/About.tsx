@@ -29,7 +29,7 @@ const About = (): ReactElement => {
           <span>
             <img id="mundo-img" src={mundo} alt="planeta terra" />
             Somos uma plataforma criada para ajudar você, cidadão de Criciúma,
-            <br />a ficar por dentro dos dias certos da coleta seletiva no seu
+            a ficar por dentro dos dias certos da coleta seletiva no seu
             bairro!
           </span>
 
