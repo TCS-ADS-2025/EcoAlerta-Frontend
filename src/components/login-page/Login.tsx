@@ -115,7 +115,6 @@ const Login = (): ReactElement => {
           </div>
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };

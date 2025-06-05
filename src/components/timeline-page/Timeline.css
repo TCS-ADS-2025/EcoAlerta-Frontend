@@ -8,21 +8,6 @@
   align-items: center;
 }
 
-.timeline-title {
-  height: 75px;
-  width: 65%;
-  margin-bottom: 10px;
-  border: 2px solid #474843;
-  background-color: #95a868;
-  color: white;
-  border-radius: 20px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
 table {
   border-collapse: separate;
   border-spacing: 0;
