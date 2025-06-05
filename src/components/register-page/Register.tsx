@@ -10,16 +10,16 @@ import { BairroData } from "../../interface/BairroData";
 
 import "./Register.css";
 import Header from "../header/Header";
-import Footer from "../footer/Footer";
 
 const Cadastro = (): ReactElement => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<UserData>({
     nomeCompleto: "",
     email: "",
     cep: "",
     bairroId: "",
-    localidade: "",
+    localidade: "Criciúma",
     logradouro: "",
     numero: "",
     complemento: "",
@@ -55,10 +55,10 @@ const Cadastro = (): ReactElement => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const endpoint = "/auth/register";
       const method = "post";
-
       const response = await api[method](endpoint, formData);
 
       if ([200, 201].includes(response.status)) {
@@ -69,6 +69,8 @@ const Cadastro = (): ReactElement => {
       }
     } catch (err) {
       console.error("Erro ao realizar login:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +94,7 @@ const Cadastro = (): ReactElement => {
         <Col
           xs={12}
           md={6}
-          className="d-flex flex-column justify-content-center align-items-center"
+          className="d-flex flex-column justify-content-start align-items-center"
           id="right-side-register"
         >
           <div className="d-flex flex-column justify-content-center align-items-center">
@@ -125,34 +127,6 @@ const Cadastro = (): ReactElement => {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group className="mb-3 form-group" controlId="cidade">
-                    <i className="bi bi-geo-alt top-50 start-0 translate-middle-y ms-3"></i>
-                    <Form.Control
-                      className="ps-5 register-campos"
-                      type="text"
-                      placeholder="Cidade"
-                      name="localidade"
-                      value={formData.localidade}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Form.Group className="mb-3 form-group" controlId="logradouro">
-                <i className="bi bi-geo-alt top-50 start-0 translate-middle-y ms-3"></i>
-                <Form.Control
-                  className="ps-5 register-campos"
-                  type="text"
-                  placeholder="Logradouro"
-                  name="logradouro"
-                  value={formData.logradouro}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Row>
-                <Col>
                   <Form.Group className="mb-3 form-group" controlId="bairroId">
                     <i className="bi bi-geo-alt top-50 start-0 translate-middle-y ms-3"></i>
                     <Form.Select
@@ -174,6 +148,34 @@ const Cadastro = (): ReactElement => {
                         </option>
                       ))}
                     </Form.Select>
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Form.Group className="mb-3 form-group" controlId="logradouro">
+                <i className="bi bi-geo-alt top-50 start-0 translate-middle-y ms-3"></i>
+                <Form.Control
+                  className="ps-5 register-campos"
+                  type="text"
+                  placeholder="Logradouro"
+                  name="logradouro"
+                  value={formData.logradouro}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3 form-group" controlId="cidade">
+                    <i className="bi bi-geo-alt top-50 start-0 translate-middle-y ms-3"></i>
+                    <Form.Control
+                      className="ps-5 register-campos"
+                      type="text"
+                      placeholder="Cidade"
+                      name="localidade"
+                      value={formData.localidade}
+                      disabled
+                    />
                   </Form.Group>
                 </Col>
                 <Col>
@@ -228,8 +230,12 @@ const Cadastro = (): ReactElement => {
               </Form.Group>
 
               <div className="d-flex justify-content-center">
-                <Button className="register-form-btn btn-success" type="submit">
-                  Cadastrar
+                <Button
+                  className="register-form-btn btn-success"
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? "Cadastrando..." : "Cadastrar"}
                 </Button>
               </div>
             </Form>
