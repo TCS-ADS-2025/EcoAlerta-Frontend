@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/logo-branca.png";
+
 import { estaAutenticado, logout } from "../../service/auth";
 
 const Header = () => {
@@ -11,10 +12,10 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     setIsMenuOpen(false);
-    navigate("/login"); // ou "/" se quiser redirecionar para home
+    navigate("/login");
   };
 
-  const loggedIn = estaAutenticado();
+  const estaLogado = estaAutenticado();
 
   return (
     <header>
@@ -68,7 +69,7 @@ const Header = () => {
               Comentário
             </Link>
 
-            {!loggedIn && (
+            {!estaLogado && (
               <>
                 <Link
                   to="/register"
@@ -87,16 +88,10 @@ const Header = () => {
               </>
             )}
 
-            {loggedIn && (
+            {estaLogado && (
               <button
                 onClick={handleLogout}
                 className="nav-link btn-logout"
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  color: "white",
-                }}
               >
                 Sair
               </button>

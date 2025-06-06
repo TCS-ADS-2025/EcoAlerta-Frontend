@@ -94,7 +94,7 @@ const Cadastro = (): ReactElement => {
         <Col
           xs={12}
           md={6}
-          className="d-flex flex-column justify-content-start align-items-center"
+          className="d-flex flex-column justify-content-center align-items-center"
           id="right-side-register"
         >
           <div className="d-flex flex-column justify-content-center align-items-center">
