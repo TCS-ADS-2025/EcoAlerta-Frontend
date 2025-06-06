@@ -11,7 +11,6 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    setIsMenuOpen(false);
     navigate("/login");
   };
 
@@ -52,7 +51,7 @@ const Header = () => {
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
             >
-              Concientização
+              Conscientização
             </Link>
             <Link
               to="/timeline"
@@ -89,12 +88,24 @@ const Header = () => {
             )}
 
             {estaLogado && (
-              <button
-                onClick={handleLogout}
-                className="nav-link btn-logout"
-              >
-                Sair
-              </button>
+              <>
+                <Link
+                  to="/perfil"
+                  className="nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Perfil
+                </Link>
+                <button
+                  className="nav-link"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Sair
+                </button>
+              </>
             )}
           </div>
         </div>
