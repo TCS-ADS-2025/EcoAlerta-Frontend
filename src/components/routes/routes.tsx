@@ -1,12 +1,13 @@
 import React from "react";
 import { ReactElement } from "react";
 import { Routes, Route } from "react-router-dom";
+import About from "../about/About";
 import Adm from "../adm-page/Adm";
-import Coment from "../coment-page/coment";
+import Coment from "../coment-page/Coment";
 import Home from "../home-page/Home";
 import Login from "../login-page/Login";
 import Register from "../register-page/Register";
-import Timeline from "../timeline-page/timeline";
+import Timeline from "../timeline-page/Timeline";
 
 const AppRoutes = (): ReactElement => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = (): ReactElement => {
         <Route path="/register" element={<Register />} />
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
       </Routes>
   );
 };

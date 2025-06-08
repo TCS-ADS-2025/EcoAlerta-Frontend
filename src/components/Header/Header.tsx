@@ -1,22 +1,32 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/logo-branca.png";
 
+import { estaAutenticado, logout } from "../../service/auth";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
+    navigate("/login");
+  };
+
+  const estaLogado = estaAutenticado();
+
   return (
     <header>
       <nav className="navbar">
         <div className="navbar-content">
-          <Link to="/" className="navbar-logo">
-            <img
-              src={logo}
-              alt="Eco Alerta Logo"
-              className="logo-img"
-            />
+          <Link
+            to="/"
+            className="navbar-logo"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <img src={logo} alt="Eco Alerta Logo" className="logo-img" />
           </Link>
 
           <button
@@ -31,39 +41,18 @@ const Header = () => {
 
           <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
             <Link
+              to="/about"
+              className="nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Sobre Nós
+            </Link>
+            <Link
               to="/"
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
-            </Link>
-            <Link
-              to="/register"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Cadastro
-            </Link>
-            <Link
-              to="/login"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Login
-            </Link>
-            <Link
-              to="/T3l4d0@dm"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Adm
-            </Link>
-            <Link
-              to="/coment"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Comentário
+              Concientização
             </Link>
             <Link
               to="/timeline"
@@ -72,6 +61,41 @@ const Header = () => {
             >
               Cronograma
             </Link>
+            <Link
+              to="/coment"
+              className="nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Comentário
+            </Link>
+
+            {!estaLogado && (
+              <>
+                <Link
+                  to="/register"
+                  className="nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Cadastro
+                </Link>
+                <Link
+                  to="/login"
+                  className="nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              </>
+            )}
+
+            {estaLogado && (
+              <button
+                onClick={handleLogout}
+                className="nav-link btn-logout"
+              >
+                Sair
+              </button>
+            )}
           </div>
         </div>
       </nav>
