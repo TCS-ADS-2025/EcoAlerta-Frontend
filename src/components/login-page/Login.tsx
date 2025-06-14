@@ -38,7 +38,9 @@ const Login = (): ReactElement => {
 
       if ([200, 201].includes(response.status)) {
         const token = response.data.token;
-        login(token);
+        const role = response.data.role;
+
+        login(token, role);
         alert(`Login realizado com sucesso!`);
         navigate("/");
       }
