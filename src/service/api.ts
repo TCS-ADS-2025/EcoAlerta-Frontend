@@ -21,8 +21,10 @@ api.interceptors.request.use(
     },
     (error: AxiosError) => {
       if (error.response?.status === 403) {
+        
         logout();
         window.location.assign("/login");
+        
       }
       return Promise.reject(error);
     }

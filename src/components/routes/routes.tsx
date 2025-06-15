@@ -3,11 +3,11 @@ import { ReactElement } from "react";
 import { Routes, Route } from "react-router-dom";
 import About from "../about/About";
 import Adm from "../adm-page/Adm";
-import Coment from "../coment-page/Coment";
 import Home from "../home-page/Home";
 import Login from "../login-page/Login";
 import Register from "../register-page/Register";
 import Timeline from "../timeline-page/Timeline";
+import Coment from '../coment-page/Coment';
 
 const AppRoutes = (): ReactElement => {
   return (
