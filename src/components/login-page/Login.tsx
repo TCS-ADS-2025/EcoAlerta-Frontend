@@ -13,12 +13,13 @@ import Header from "../header/Header";
 const Login = (): ReactElement => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginData>({ email: "", senha: "" });
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (estaAutenticado()) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,12 +31,15 @@ const Login = (): ReactElement => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
+    if (!formData.email || !formData.senha) {
+      setError("Por favor, preencha todos os campos");
+      return;
+    }
+
     try {
-      const endpoint = "/auth/login";
-      const method = "post";
-
-      const response = await api[method](endpoint, formData);
-
+      const response = await api.post("/auth/login", formData);
       if ([200, 201].includes(response.status)) {
         const token = response.data.token;
         const role = response.data.role;
@@ -46,6 +50,7 @@ const Login = (): ReactElement => {
       }
     } catch (err) {
       console.error("Erro ao realizar login:", err);
+      setError("E-mail ou senha incorretos");
     }
   };
 
@@ -77,6 +82,9 @@ const Login = (): ReactElement => {
           >
             <img id="logo" src={logo} alt="Eco Alerta logo" />
             <h2 className="text-center mb-3">Login</h2>
+
+            {error && <div className="alert alert-danger">{error}</div>}
+
             <Form id="register-form" onSubmit={handleSubmit}>
               <Form.Group className="mb-3 form-group" controlId="email">
                 <i className="bi bi-envelope top-50 start-0 translate-middle-y ms-3"></i>
@@ -87,6 +95,7 @@ const Login = (): ReactElement => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
 
@@ -99,6 +108,7 @@ const Login = (): ReactElement => {
                   name="senha"
                   value={formData.senha}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
 
