@@ -9,7 +9,6 @@ import { LoginData } from "./../../interface/LoginData";
 import "./Login.css";
 import logo from "../../assets/logo-verde-sem-fundo.png";
 import Header from "../header/Header";
-import Footer from "../footer/Footer";
 
 const Login = (): ReactElement => {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ const Login = (): ReactElement => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    
+
     if (!formData.email || !formData.senha) {
       setError("Por favor, preencha todos os campos");
       return;
@@ -41,16 +40,13 @@ const Login = (): ReactElement => {
 
     try {
       const response = await api.post("/auth/login", formData);
+      if ([200, 201].includes(response.status)) {
+        const token = response.data.token;
+        const role = response.data.role;
 
-      if (response.status === 200) {
-        const { token, role } = response.data;
-        login(token); 
-        
-        if (role === 'ADMIN') {
-          navigate("/T3l4d0@dm");
-        } else {
-          navigate("/");
-        }
+        login(token, role);
+        alert(`Login realizado com sucesso!`);
+        navigate("/");
       }
     } catch (err) {
       console.error("Erro ao realizar login:", err);
@@ -86,9 +82,9 @@ const Login = (): ReactElement => {
           >
             <img id="logo" src={logo} alt="Eco Alerta logo" />
             <h2 className="text-center mb-3">Login</h2>
-            
+
             {error && <div className="alert alert-danger">{error}</div>}
-            
+
             <Form id="register-form" onSubmit={handleSubmit}>
               <Form.Group className="mb-3 form-group" controlId="email">
                 <i className="bi bi-envelope top-50 start-0 translate-middle-y ms-3"></i>
@@ -130,7 +126,6 @@ const Login = (): ReactElement => {
           </div>
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };
