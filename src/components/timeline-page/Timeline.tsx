@@ -1,88 +1,179 @@
 import { ReactElement, useEffect, useState } from "react";
+import { Modal, Form } from "react-bootstrap";
 import { Bairro, CronogramaData } from "../../interface/CronogramaData";
 import api from "../../service/api";
-
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
 import "./Timeline.css";
 
-const diasSemana = [
-  { api: "SEGUNDA", label: "Segunda-feira" },
-  { api: "TERCA", label: "Terça-feira" },
-  { api: "QUARTA", label: "Quarta-feira" },
-  { api: "QUINTA", label: "Quinta-feira" },
-  { api: "SEXTA", label: "Sexta-feira" },
-  { api: "SABADO", label: "Sábado" },
-  { api: "DOMINGO", label: "Domingo" },
-];
-
 const Timeline = (): ReactElement => {
-  const [cronogramas, setCronogramas] = useState<Record<string, Bairro[]>>({});
+  const [cronograma, setCronograma] = useState<Record<string, CronogramaData>>({});
+  const [todosBairros, setTodosBairros] = useState<Bairro[]>([]);
+  const [diaSelecionado, setDiaSelecionado] = useState<string | null>(null);
+  const [bairrosSelecionados, setBairrosSelecionados] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const diaColeta = ["SEGUNDA", "TERCA", "QUARTA", "QUINTA", "SEXTA", "SABADO"];
 
   useEffect(() => {
-    const fetchCronogramas = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get<CronogramaData[]>("/cronogramas/listar");
-        console.log("Dados recebidos:", response.data);
+        const [cronogramaRes, bairrosRes] = await Promise.all([
+          api.get<CronogramaData[]>("/cronogramas/listar"),
+          api.get<Bairro[]>("/bairros/listar"),
+        ]);
 
-        const dadosAgrupados: Record<string, Bairro[]> = {};
-        diasSemana.forEach((dia) => {
-          dadosAgrupados[dia.label] = [];
+        const dadosAgrupados: Record<string, CronogramaData> = {};
+        cronogramaRes.data.forEach((item) => {
+          const dia = item.diaSemana.toUpperCase();
+          dadosAgrupados[dia] = item;
         });
 
-        response.data.forEach((item) => {
-          const diaEncontrado = diasSemana.find(
-            (d) => d.api === item.diaSemana.toUpperCase()
-          );
-          if (diaEncontrado) {
-            dadosAgrupados[diaEncontrado.label].push(...item.bairros);
-          }
-        });
-
-        setCronogramas(dadosAgrupados);
-      } catch (err) {
-        console.error("Erro ao buscar cronogramas:", err);
+        setCronograma(dadosAgrupados);
+        setTodosBairros(bairrosRes.data);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchCronogramas();
+    fetchData();
   }, []);
+
+  const handleOpenModal = (dia: string) => {
+    setDiaSelecionado(dia);
+    setBairrosSelecionados(cronograma[dia]?.bairros.map((b) => b.id) || []);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setDiaSelecionado(null);
+    setBairrosSelecionados([]);
+  };
+
+  const handleCheckboxChange = (bairroId: string) => {
+    setBairrosSelecionados((prevSelecionados) => {
+      if (prevSelecionados.includes(bairroId)) {
+        return prevSelecionados.filter((id) => id !== bairroId);
+      } else {
+        return [...prevSelecionados, bairroId];
+      }
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (!diaSelecionado) return;
+
+    const cronogramaDoDia = cronograma[diaSelecionado];
+    const cronogramaId = cronogramaDoDia?.id;
+
+    const payload = {
+      diaSemana: diaSelecionado,
+      bairrosIds: bairrosSelecionados,
+    };
+
+    try {
+      if (cronogramaId) {
+        await api.put(`/cronogramas/atualizar/${cronogramaId}`, payload);
+      } else {
+        const response = await api.post("/cronogramas/cadastrar", payload);
+      }
+      alert("Cronograma salvo com sucesso!");
+
+      const bairrosAtualizados = todosBairros.filter((bairro) =>
+        bairrosSelecionados.includes(bairro.id)
+      );
+
+      setCronograma((prev) => ({
+        ...prev,
+        [diaSelecionado]: {
+          id: cronogramaId ?? "",
+          diaSemana: diaSelecionado,
+          bairros: bairrosAtualizados,
+        },
+      }));
+
+      handleCloseModal();
+    } catch (error) {
+      console.error("Erro ao salvar cronograma:", error);
+      alert("Erro ao salvar cronograma.");
+    }
+  };
 
   return (
     <>
       <Header />
-
       <div className="timeline-container">
-        <table>
+        <table className="table tabela-cronograma table-bordered table-fixed text-center">
           <thead>
             <tr>
-              {diasSemana.map((dia) => (
-                <th key={dia.api}>{dia.label}</th>
+              <th colSpan={7} id="titulo-tabela">
+                Coleta Seletiva em Criciúma-SC
+              </th>
+            </tr>
+            <tr>
+              {diaColeta.map((dia) => (
+                <th key={dia}>{dia}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             <tr>
-              {diasSemana.map((dia) => (
-                <td key={dia.api}>
-                  <ul className="bairro-list">
-                    {cronogramas[dia.label]?.length ? (
-                      cronogramas[dia.label].map((bairro) => (
+              {diaColeta.map((dia) => (
+                <td key={dia}>
+                  <ul className="list-unstyled bairro-list">
+                    {cronograma[dia]?.bairros.length ? (
+                      cronograma[dia].bairros.map((bairro) => (
                         <li key={bairro.id} className="bairro-item">
                           {bairro.nomeBairro}
                         </li>
                       ))
                     ) : (
-                      <li className="bairro-item vazio">Nenhum bairro</li>
+                      <li className="text-muted">Nenhum bairro</li>
                     )}
                   </ul>
+                  <button
+                    className="btn btn-warning btn-editar"
+                    onClick={() => handleOpenModal(dia)}
+                  >
+                    Editar
+                  </button>
                 </td>
               ))}
             </tr>
           </tbody>
         </table>
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar bairros de {diaSelecionado}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            {todosBairros.map((bairro) => (
+              <Form.Check
+                key={bairro.id}
+                type="checkbox"
+                label={bairro.nomeBairro}
+                checked={bairrosSelecionados.includes(bairro.id)}
+                onChange={() => handleCheckboxChange(bairro.id)}
+              />
+            ))}
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={handleCloseModal}>
+            Cancelar
+          </button>
+          <button className="btn btn-success" onClick={handleSubmit}>
+            Salvar
+          </button>
+        </Modal.Footer>
+      </Modal>
 
       <Footer />
     </>

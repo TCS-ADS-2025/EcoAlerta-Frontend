@@ -8,38 +8,14 @@
   align-items: center;
 }
 
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid #474843;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-td {
-  background-color: #f0f2eb;
-  border: 1px solid #474843;
-  text-align: start;
-}
-
-th {
-  color: white;
-  background-color: #95a868;
-  border: 1px solid #474843;
-  padding: 12px;
-  text-align: center;
-}
-
-li {
-  list-style-type: none;
-}
-
-.bairro-list {
-  padding: 0;
-  margin: 0;
-}
-
 .bairro-item {
-  border-bottom: 1px solid #474843;
-  padding: 20px;
+  word-break: break-word;
+}
+
+#titulo-tabela {
+  background-color: #9caf6b;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-align: center;
 }
