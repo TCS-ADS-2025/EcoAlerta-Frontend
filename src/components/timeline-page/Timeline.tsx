@@ -2,11 +2,13 @@ import { ReactElement, useEffect, useState } from "react";
 import { Modal, Form } from "react-bootstrap";
 import { Bairro, CronogramaData } from "../../interface/CronogramaData";
 import api from "../../service/api";
+import { getRole } from "../../service/auth";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import "./Timeline.css";
 
 const Timeline = (): ReactElement => {
+  const role = getRole();
   const [cronograma, setCronograma] = useState<Record<string, CronogramaData>>({});
   const [todosBairros, setTodosBairros] = useState<Bairro[]>([]);
   const [diaSelecionado, setDiaSelecionado] = useState<string | null>(null);
@@ -103,6 +105,30 @@ const Timeline = (): ReactElement => {
     }
   };
 
+  const handleDelete = async (dia: string) => {
+    const cronogramaDoDia = cronograma[dia];
+    const cronogramaId = cronogramaDoDia?.id;
+
+    if (!cronogramaId) {
+      alert("Nenhum cronograma encontrado para este dia.");
+      return;
+    }
+
+    try {
+      await api.delete(`/cronogramas/excluir/${cronogramaId}`);
+      alert("Cronograma excluído com sucesso!");
+
+      setCronograma((prev) => {
+        const novoEstado = { ...prev };
+        delete novoEstado[dia];
+        return novoEstado;
+      });
+    } catch (error) {
+      console.error("Erro ao excluir cronograma:", error);
+      alert("Erro ao excluir cronograma.");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -135,15 +161,31 @@ const Timeline = (): ReactElement => {
                       <li className="text-muted">Nenhum bairro</li>
                     )}
                   </ul>
-                  <button
-                    className="btn btn-warning btn-editar"
-                    onClick={() => handleOpenModal(dia)}
-                  >
-                    Editar
-                  </button>
                 </td>
               ))}
             </tr>
+            {role === "ADMIN" && (
+              <tr>
+                {diaColeta.map((dia) => (
+                  <td key={`${dia}-btn`} className="text-center">
+                    <div className="linha-btn">
+                      <button
+                        className="btn btn-warning"
+                        onClick={() => handleOpenModal(dia)}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(dia)}
+                      >
+                        Excluir
+                      </button>
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
