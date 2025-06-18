@@ -13,7 +13,6 @@
 
   width: 30%;
   height: 70%;
-
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -21,10 +20,9 @@
 }
 
 .container-buttons {
-  width: 74%;
-
   display: flex;
-  justify-content: end;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-warning {
