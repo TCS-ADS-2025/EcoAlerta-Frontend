@@ -2,22 +2,20 @@ import { ReactElement } from "react";
 import { Container, Card } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import coleta from "../../assets/coleta-seletiva.png";
-
+import coleta from "../../../assets/coleta-seletiva.png";
+import separacao from "../../../assets/card-1/separacao.png";
+import limpeza from "../../../assets/card-1/limpeza.png";
+import reaproveitamento from "../../../assets/card-1/reaproveitamento.png";
+import reciclagem from "../../../assets/card-1/reciclagem.png";
+import reduza from "../../../assets/card-1/reduza.png";
+import eletronico from "../../../assets/card-1/eletronico.png";
+import papel from "../../../assets/card-2/papel.png";
+import fralda from "../../../assets/card-2/fralda.png";
+import cigarro from "../../../assets/card-2/cigarro.png";
+import chiclete from "../../../assets/card-2/chiclete.png";
+import copo from "../../../assets/card-2/copo.png";
+import vidro from "../../../assets/card-2/vidro.png";
 import "./Home.css";
-import separacao from "../../assets/card-1/separacao.png";
-import limpeza from "../../assets/card-1/limpeza.png";
-import reaproveitamento from "../../assets/card-1/reaproveitamento.png";
-import reciclagem from "../../assets/card-1/reciclagem.png";
-import reduza from "../../assets/card-1/reduza.png";
-import eletronico from "../../assets/card-1/eletronico.png";
-
-import papel from "../../assets/card-2/papel.png";
-import fralda from "../../assets/card-2/fralda.png";
-import cigarro from "../../assets/card-2/cigarro.png";
-import chiclete from "../../assets/card-2/chiclete.png";
-import copo from "../../assets/card-2/copo.png";
-import vidro from "../../assets/card-2/vidro.png";
 
 const Home = (): ReactElement => {
   return (

@@ -16,18 +16,15 @@ api.interceptors.request.use(
   );
 
   api.interceptors.response.use(
-    (response: AxiosResponse) => {
-      return response;
-    },
-    (error: AxiosError) => {
-      if (error.response?.status === 403) {
-        
-        logout();
-        window.location.assign("/login");
-        
-      }
-      return Promise.reject(error);
+  (response: AxiosResponse) => {
+    return response;
+  },
+  (error: AxiosError) => {
+    if ((error.response?.status === 401 || error.response?.status === 403) && error.config?.url !== "/auth/login") {
+      logout();
     }
-  );
+    return Promise.reject(error);
+  }
+);
 
 export default api;

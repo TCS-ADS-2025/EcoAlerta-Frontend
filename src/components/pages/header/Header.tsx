@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { estaAutenticado, logout } from "../../../service/auth";
+import logo from "../../../assets/logo-branca.png"
 import "./Header.css";
-import logo from "../../assets/logo-branca.png";
-
-import { estaAutenticado, logout } from "../../service/auth";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
