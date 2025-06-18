@@ -10,9 +10,21 @@ export interface Endereco {
 }
 
 export interface UserData {
-    id: string;
-    nomeCompleto: string;
-    email: string;
-    endereco: Endereco;
-    senha?: string;
+  id: string;
+  nomeCompleto: string;
+  email: string;
+  endereco: Endereco;
+  senha?: string;
+}
+
+export interface UserDataCadastro {
+  nomeCompleto: string;
+  email: string;
+  cep: string;
+  localidade: string;
+  bairroId: string;
+  logradouro: string;
+  numero?: string;
+  complemento?: string;
+  senha: string;
 }
