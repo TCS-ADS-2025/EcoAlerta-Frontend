@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { estaAutenticado, logout } from "../../../service/auth";
-import logo from "../../../assets/logo-branca.png"
+import { getRole } from "../../../service/auth";
+import logo from "../../../assets/logo-branca.png";
 import "./Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const estaLogado = estaAutenticado();
+  const role = getRole();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
-
-  const estaLogado = estaAutenticado();
 
   return (
     <header>
@@ -88,13 +89,16 @@ const Header = () => {
 
             {estaLogado && (
               <>
-                <Link
-                  to="/perfil"
-                  className="nav-link"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Perfil
-                </Link>
+                {role !== "ADMIN" && (
+                  <Link
+                    to="/perfil"
+                    className="nav-link"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Perfil
+                  </Link>
+                )}
+
                 <button
                   className="nav-link"
                   onClick={() => {

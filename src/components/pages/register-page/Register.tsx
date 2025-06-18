@@ -6,7 +6,7 @@ import { cadastro } from "../../../service/auth";
 import { UserDataCadastro } from "../../../types/UserData"; 
 import { BairroData } from "../../../types/BairroData";
 import Header from "../header/Header";
-import Message from "../alerts/Message";
+import Message from "../../alerts/Message";
 import "./Register.css";
 
 const Cadastro = (): ReactElement => {

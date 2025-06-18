@@ -7,7 +7,7 @@ import Footer from "../footer/Footer";
 import api from "../../../service/api";
 import { logout } from "../../../service/auth";
 import { BairroData } from "../../../types/BairroData";
-import Message from "../alerts/Message";
+import Message from "../../alerts/Message";
 import ConfirmationModal from "../../ConfirmationModal";
 import "./User.css";
 

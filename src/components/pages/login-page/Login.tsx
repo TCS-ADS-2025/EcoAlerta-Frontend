@@ -9,7 +9,7 @@ import { LoginData } from "../../../types/LoginData";
 import "./Login.css";
 import logo from "../../../assets/logo-verde-sem-fundo.png";
 import Header from "../header/Header";
-import Message from "../alerts/Message";
+import Message from "../../alerts/Message";
 
 const Login = (): ReactElement => {
   const navigate = useNavigate();
