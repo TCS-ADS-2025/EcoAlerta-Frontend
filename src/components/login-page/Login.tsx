@@ -9,10 +9,12 @@ import { LoginData } from "./../../interface/LoginData";
 import "./Login.css";
 import logo from "../../assets/logo-verde-sem-fundo.png";
 import Header from "../header/Header";
+import Message from "../alerts/Message";
 
 const Login = (): ReactElement => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginData>({ email: "", senha: "" });
+  const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Login = (): ReactElement => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
 
     if (!formData.email || !formData.senha) {
       setError("Por favor, preencha todos os campos");
@@ -45,8 +48,8 @@ const Login = (): ReactElement => {
         const role = response.data.role;
 
         login(token, role);
-        alert(`Login realizado com sucesso!`);
-        navigate("/");
+        setSuccess("Login realizado com sucesso!");
+        setTimeout(() => navigate("/"), 2500);
       }
     } catch (err) {
       console.error("Erro ao realizar login:", err);
@@ -57,6 +60,10 @@ const Login = (): ReactElement => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
+
+      {success && <Message type="success" message={success} onClose={() => setSuccess("")} />}
+      {error && <Message type="error" message={error} onClose={() => setError("")} />}
+        
       <Row className="flex-grow-1 mt-0">
         <Col
           xs={12}
@@ -83,8 +90,6 @@ const Login = (): ReactElement => {
             <img id="logo" src={logo} alt="Eco Alerta logo" />
             <h2 className="text-center mb-3">Login</h2>
 
-            {error && <div className="alert alert-danger">{error}</div>}
-
             <Form id="register-form" onSubmit={handleSubmit}>
               <Form.Group className="mb-3 form-group" controlId="email">
                 <i className="bi bi-envelope top-50 start-0 translate-middle-y ms-3"></i>
@@ -103,7 +108,7 @@ const Login = (): ReactElement => {
                 <i className="bi bi-lock top-50 start-0 translate-middle-y ms-3"></i>
                 <Form.Control
                   className="ps-5 login-campos"
-                  type="password"
+                  type="password" 
                   placeholder="Senha"
                   name="senha"
                   value={formData.senha}
