@@ -2,12 +2,12 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-import api from "../../service/api";
-import { estaAutenticado, login } from "../../service/auth";
-import { LoginData } from "./../../interface/LoginData";
+import api from "../../../service/api";
+import { estaAutenticado, login } from "../../../service/auth";
+import { LoginData } from "../../../types/LoginData";
 
 import "./Login.css";
-import logo from "../../assets/logo-verde-sem-fundo.png";
+import logo from "../../../assets/logo-verde-sem-fundo.png";
 import Header from "../header/Header";
 import Message from "../alerts/Message";
 

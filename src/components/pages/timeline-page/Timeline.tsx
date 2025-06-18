@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Modal, Form } from "react-bootstrap";
-import { Bairro, CronogramaData } from "../../interface/CronogramaData";
-import api from "../../service/api";
-import { getRole } from "../../service/auth";
+import { Bairro, CronogramaData } from "../../../types/CronogramaData";
+import api from "../../../service/api";
+import { getRole } from "../../../service/auth";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import "./Timeline.css";

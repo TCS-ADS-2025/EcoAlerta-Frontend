@@ -20,6 +20,8 @@ export const cadastro = (token: string, role: string): void => {
 
 export const logout = (): void => {
   localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(ROLE_KEY);
+  window.location.assign("/login");
 };
 
 interface DecodedToken {

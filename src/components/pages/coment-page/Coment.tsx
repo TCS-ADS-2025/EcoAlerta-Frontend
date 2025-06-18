@@ -2,11 +2,11 @@ import React, { useState, useEffect, ReactElement } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import "../coment-page/Coment.css";
-import api from "../../service/api";
+import api from "../../../service/api";
 import { CategoriaComentario } from "./CategoriaComentario";
-import { Comentario } from "../../interface/Comentario";
-import { isAdmin } from "../../service/auth";
-import { UserData } from "../../interface/UserData";
+import { Comentario } from "../../../types/Comentario";
+import { isAdmin } from "../../../service/auth";
+import { UserData } from "../../../types/UserData";
 
 const Coment = (): ReactElement => {
   const [comentarios, setComentarios] = useState<Comentario[]>([]);

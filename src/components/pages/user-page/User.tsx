@@ -1,11 +1,14 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserData } from "../../interface/UserData";
+import { UserData } from "../../../types/UserData";
 import { Modal, Form } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import api from "../../service/api";
-import { BairroData } from "../../interface/BairroData";
+import api from "../../../service/api";
+import { logout } from "../../../service/auth";
+import { BairroData } from "../../../types/BairroData";
+import Message from "../alerts/Message";
+import ConfirmationModal from "../../ConfirmationModal";
 import "./User.css";
 
 const User = (): ReactElement => {
@@ -13,10 +16,15 @@ const User = (): ReactElement => {
   const [formData, setFormData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [bairros, setBairros] = useState<BairroData[]>([]);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+  const handleDeleteClick = () => setShowDeleteConfirm(true);
+  const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,6 +33,7 @@ const User = (): ReactElement => {
         setFormData(response.data);
       } catch (error) {
         console.log("Erro ao buscar informações de usuário:", error);
+        setError("Erro ao buscar informações de usuário");
       } finally {
         setLoading(false);
       }
@@ -39,6 +48,7 @@ const User = (): ReactElement => {
         setBairros(response.data);
       } catch (err) {
         console.error("Erro ao buscar bairros:", err);
+        setError("Erro ao buscar bairros");
       }
     };
 
@@ -89,32 +99,28 @@ const User = (): ReactElement => {
 
     try {
       await api.put(`/usuarios/atualizar/${formData.id}`, payload);
-      alert("Usuário atualizado com sucesso");
+      setSuccess("Usuário atualizado com sucesso!");
       setShowModal(false);
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
-      alert("Erro ao atualizar dados");
+      setError("Erro ao atualizar dados");
     }
   };
 
   const handleDelete = async () => {
+    handleCloseDeleteConfirm();
+
     if (!formData) {
-      return;
-    }
-
-    const confirm = window.confirm("Deseja realmente excluir sua conta?");
-
-    if (!confirm) {
       return;
     }
 
     try {
       await api.delete(`/usuarios/excluir/${formData.id}`);
-      alert("Conta excluída com sucesso");
-      navigate("/");
+      setSuccess("Conta excluída com sucesso!");
+      logout();
     } catch (error) {
       console.error("Erro ao excluir conta:", error);
-      alert("Erro ao excluir conta");
+      setError("Erro ao excluir conta");
     }
   };
 
@@ -125,6 +131,10 @@ const User = (): ReactElement => {
   return (
     <>
       <Header />
+
+      {success && (<Message type="success" message={success} onClose={() => setSuccess("")}/>)}
+      {error && (<Message type="error" message={error} onClose={() => setError("")} />)}
+
       <div className="container-principal">
         <div className="info-usuario">
           {loading ? (
@@ -162,7 +172,7 @@ const User = (): ReactElement => {
                 <button className="btn btn-warning" onClick={handleOpenModal}>
                   Editar
                 </button>
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <button className="btn btn-danger" onClick={handleDeleteClick}>
                   Excluir
                 </button>
               </div>
@@ -259,6 +269,17 @@ const User = (): ReactElement => {
           </button>
         </Modal.Footer>
       </Modal>
+
+      <ConfirmationModal
+        show={showDeleteConfirm}
+        title="Confirmação de Exclusão"
+        message="Tem certeza que deseja excluir sua conta? Esta ação é irreversível."
+        onConfirm={handleDelete}
+        onCancel={handleCloseDeleteConfirm}
+        confirmText="Sim"
+        cancelText="Não"
+        confirmVariant="danger"
+      />
 
       <Footer />
     </>

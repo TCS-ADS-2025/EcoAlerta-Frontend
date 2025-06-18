@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import api from "../../service/api";
-import { cadastro } from "../../service/auth";
-import { UserDataCadastro } from "../../interface/UserData"; 
-import { BairroData } from "../../interface/BairroData";
+import api from "../../../service/api";
+import { cadastro } from "../../../service/auth";
+import { UserDataCadastro } from "../../../types/UserData"; 
+import { BairroData } from "../../../types/BairroData";
 import Header from "../header/Header";
 import Message from "../alerts/Message";
 import "./Register.css";
