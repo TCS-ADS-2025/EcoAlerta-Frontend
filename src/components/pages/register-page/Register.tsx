@@ -1,26 +1,26 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
-
-import api from "../../service/api";
-import { cadastro } from "../../service/auth";
-
-import { UserData } from "../../interface/UserData";
-import { BairroData } from "../../interface/BairroData";
-
-import "./Register.css";
+import api from "../../../service/api";
+import { cadastro } from "../../../service/auth";
+import { UserDataCadastro } from "../../../types/UserData"; 
+import { BairroData } from "../../../types/BairroData";
 import Header from "../header/Header";
+import Message from "../../alerts/Message";
+import "./Register.css";
 
 const Cadastro = (): ReactElement => {
   const navigate = useNavigate();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<UserData>({
+  const [formData, setFormData] = useState<UserDataCadastro>({
     nomeCompleto: "",
     email: "",
     cep: "",
     bairroId: "",
-    localidade: "Criciúma",
     logradouro: "",
+    localidade: "Criciúma",
     numero: "",
     complemento: "",
     senha: "",
@@ -41,11 +41,7 @@ const Cadastro = (): ReactElement => {
     fetchBairros();
   }, []);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -56,6 +52,13 @@ const Cadastro = (): ReactElement => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!formData.nomeCompleto || !formData.email || !formData.cep || !formData.bairroId || !formData.senha) {
+        setError("Por favor, preencha todos os campos obrigatórios.")  
+        setLoading(false);
+        return;
+    } 
+    
     try {
       const endpoint = "/auth/register";
       const method = "post";
@@ -63,12 +66,15 @@ const Cadastro = (): ReactElement => {
 
       if ([200, 201].includes(response.status)) {
         const token = response.data.token;
-        cadastro(token);
-        alert(`Usuário cadastrado com sucesso!`);
-        navigate("/");
+        const role = response.data.role;
+
+        cadastro(token, role);
+        setSuccess("Usuário cadastrado com sucesso!");
+        setTimeout(() => navigate("/"), 2500);
       }
     } catch (err) {
-      console.error("Erro ao realizar login:", err);
+      console.error("Erro ao realizar cadastro:", err);
+      setError("Erro ao realizar cadastro");
     } finally {
       setLoading(false);
     }
@@ -77,6 +83,10 @@ const Cadastro = (): ReactElement => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
+      
+      {success && <Message type="success" message={success} onClose={() => setSuccess("")} />}
+      {error && <Message type="error" message={error} onClose={() => setError("")} />}
+
       <Row className="flex-grow-1 mt-0">
         <Col
           xs={12}

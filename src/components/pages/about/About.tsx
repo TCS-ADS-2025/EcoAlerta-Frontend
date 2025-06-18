@@ -5,14 +5,14 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
 import "./About.css";
-import mundo from "../../assets/mundo.png";
-import lampada from "../../assets/lampada.png";
-import folha from "../../assets/folha.png";
-import folha2 from "../../assets/folha2.png";
-import aviso from "../../assets/card-3/aviso.png";
-import info from "../../assets/card-3/info.png";
-import lixeiras from "../../assets/card-3/lixeiras.png";
-import megafone from "../../assets/card-3/megafone.png";
+import mundo from "../../../assets/mundo.png";
+import lampada from "../../../assets/lampada.png";
+import folha from "../../../assets/folha.png";
+import folha2 from "../../../assets/folha2.png";
+import aviso from "../../../assets/card-3/aviso.png";
+import info from "../../../assets/card-3/info.png";
+import lixeiras from "../../../assets/card-3/lixeiras.png";
+import megafone from "../../../assets/card-3/megafone.png";
 
 const About = (): ReactElement => {
   return (
