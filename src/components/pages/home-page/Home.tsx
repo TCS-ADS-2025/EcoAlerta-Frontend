@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { Container, Card } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import coleta from "../../../assets/coleta-seletiva.png";
+import coleta from "../../../assets/coleta-seletiva-port.png";
 import separacao from "../../../assets/card-1/separacao.png";
 import limpeza from "../../../assets/card-1/limpeza.png";
 import reaproveitamento from "../../../assets/card-1/reaproveitamento.png";
