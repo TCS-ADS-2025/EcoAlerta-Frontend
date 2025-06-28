@@ -10,18 +10,16 @@
 }
 
 .welcome-container {
-  width: 80%;
-  height: 100%;
+  width: 85%;
+  height: 70%;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 .welcome-title {
-  margin-bottom: 50px;
-
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,48 +28,53 @@
 
 .welcome-title h1 {
   color: #94aa24;
+  font-size: 40px;
   font-weight: bold;
   padding-left: 20px;
 }
 
 .welcome-title img {
   height: 60px;
+  width: 60px;
 }
 
-.about-span {
+.about-container {
   background-color: #95a868;
-  color: #ffff;
-  font-size: 28px;
-  font-weight: bold;
-
-  width: 100%;
-  height: 200px;
-  border-radius: 50px;
-  padding: 0 30px;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: justify;
+  width: 100%;
+  height: auto;
+  border-radius: 40px;
+  padding: 20px;
+}
+
+.about-container p {
+  color: #ffff;
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+  padding-left: 20px;
 }
 
 #mundo-img {
-  height: 90%;
+  height: 150px;
+  width: 150px;
   width: auto;
-  padding-right: 25px;
 }
 
-.welcome-container p {
+.register-now p {
   color: #fcc94f;
-  font-size: 25px;
+  font-size: 28px;
   font-weight: bold;
   margin: 40px 0px;
   position: relative;
+  text-align: center;
 }
 
 .register-now {
-  margin: 35px 0px;
-
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -80,6 +83,7 @@
 
 .register-now img {
   height: 70px;
+  width: 70px;
 }
 
 /* Container 2*/
@@ -98,6 +102,7 @@
   color: #94aa24;
   font-weight: bold;
   margin-top: 40px;
+  font-size: 35px;
 }
 
 .notice-title {
@@ -108,7 +113,7 @@
 }
 
 .notice-title img {
-  height: 40px;
+  height: 50px;
   padding-left: 10px;
   margin-top: 20px;
 }
@@ -117,10 +122,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 60px 0px;
-  gap: 200px 200px;
+  gap: 200px;
 }
 
 .notice-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #f6f8ee;
   color: #95a868;
   font-size: 20px;
@@ -129,7 +138,7 @@
   text-align: center;
 
   width: 350px;
-  height: 300px;
+  height: 350px;
 }
 
 .notice-card img {
@@ -140,6 +149,10 @@
 .btn-card {
   background-color: #95a868;
   color: #fcc94f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 200px;
   height: 60px;
   border-radius: 20px;
@@ -149,43 +162,70 @@
 
 /* Celulares - até 767px */
 @media screen and (max-width: 767px) {
-  .welcome-container {
-    width: 85%;
-  }
-
   .main-container-1 {
     min-height: 80vh;
   }
 
-  span {
-    font-size: 2.5vw;
+  .welcome-title img {
+    width: 30px;
+    height: 30px;
+  }
 
-    width: 100%;
-    height: 150px;
+  .welcome-title {
+    margin-bottom: 10px;
+  }
+
+  .welcome-title h1 {
+    font-size: 20px;
+    padding-left: 10px;
   }
 
   #mundo-img {
-    height: 65%;
+    height: 50px;
+    width: 50px;
   }
 
-  .welcome-container p {
+  .about-container {
+    height: auto;
+    padding: 20px;
+  }
+
+  .about-container p {
+    margin: 0;
+    padding-left: 10px;
+    font-size: 13px;
+  }
+
+  .register-now p {
+    text-align: center;
     font-size: 15px;
   }
 
   .register-now img {
-    height: 50px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .notice-title h2 {
+    font-size: 20px;
+  }
+
+  .notice-title img {
+    height: 30px;
+    width: 40px;
   }
 
   .notice-grid {
+    margin-top: 30px;
     grid-template-columns: 1fr;
     gap: 50px;
   }
 
   .notice-card .card-body {
-    font-size: 16px;
+    font-size: 13px;
 
-    width: 300px;
-    height: 280px;
+    width: 250px;
+    height: 250px;
   }
 
   .notice-card img {
@@ -194,44 +234,75 @@
 
   .btn-card {
     font-size: 18px;
-    width: 180px;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
   }
 }
 
 /* Tablets*/
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .welcome-container {
-    width: 85%;
+
+  .main-container-1 {
+    min-height: 80vh;
   }
 
-  span {
-    font-size: 18px;
-
-    width: 100%;
-    height: 140px;
-  }
-
-  #mundo-img {
-    height: 65%;
-  }
-
-  .welcome-container p {
-    font-size: 15px;
-  }
-
-  .register-now img {
+  .welcome-title img {
+    width: 50px;
     height: 50px;
   }
 
+  .welcome-title h1 {
+    font-size: 25px;
+    padding-left: 10px;
+  }
+
+  #mundo-img {
+    height: 80px;
+    width: 80px;
+  }
+
+  .about-container {
+    height: auto;
+    padding: 20px;
+  }
+
+  .about-container p {
+    margin: 0;
+    padding-left: 10px;
+    font-size: 16px;
+  }
+
+  .register-now p {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .register-now img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .notice-title h2 {
+    font-size: 25px;
+  }
+
+  .notice-title img {
+    height: 30px;
+    width: 40px;
+  }
+
   .notice-grid {
+    margin-top: 30px;
+    grid-template-columns: 1fr 1fr;
     gap: 100px;
   }
 
   .notice-card .card-body {
-    font-size: 16px;
+    font-size: 13px;
 
-    width: 300px;
-    height: 280px;
+    width: 250px;
+    height: 250px;
   }
 
   .notice-card img {
@@ -239,28 +310,122 @@
   }
 
   .btn-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     font-size: 18px;
-    width: 180px;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
   }
 }
 
 @media screen and (min-width: 993px) and (max-width: 1200px) {
-  .welcome-container {
-    width: 80%;
+  .main-container-1 {
+    min-height: 80vh;
   }
 
-  span {
-    font-size: 20px;
+  .welcome-title img {
+    width: 50px;
+    height: 50px;
+  }
 
-    width: 100%;
-    height: 200px;
+  .welcome-title h1 {
+    font-size: 30px;
+    padding-left: 10px;
   }
 
   #mundo-img {
-    height: 80%;
+    height: 100px;
+    width: 100px;
   }
 
-  .welcome-container p {
+  .about-container {
+    height: auto;
+    padding: 20px;
+  }
+
+  .about-container p {
+    margin: 0;
+    padding-left: 10px;
     font-size: 20px;
+  }
+
+  .register-now p {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .register-now img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .notice-title h2 {
+    font-size: 30px;
+  }
+
+  .notice-title img {
+    height: 40px;
+    width: 50px;
+  }
+
+  .notice-grid {
+    margin-top: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 150px;
+  }
+
+  .notice-card .card-body {
+    font-size: 15px;
+
+    width: 300px;
+    height: 300px;
+  }
+
+  .notice-card img {
+    height: 70px;
+  }
+
+  .btn-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .main-container-2 {
+    justify-content: space-evenly;
+  }
+
+  .notice-title {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .notice-title img {
+    height: 60px;
+    width: 70px;
+  }
+
+
+  .notice-grid {
+    margin-top: 30px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 80px;
+  }
+
+  .notice-card .card-body {
+    font-size: 15px;
+
+    width: 300px;
+    height: 280px;
   }
 }
