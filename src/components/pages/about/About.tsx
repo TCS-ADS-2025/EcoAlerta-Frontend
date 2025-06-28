@@ -26,7 +26,7 @@ const About = (): ReactElement => {
             <h1>Bem-vindo ao Eco Alerta!</h1>
           </div>
 
-          <span>
+          <span className="about-span">
             <img id="mundo-img" src={mundo} alt="planeta terra" />
             Somos uma plataforma criada para ajudar você, cidadão de Criciúma,
             a ficar por dentro dos dias certos da coleta seletiva no seu

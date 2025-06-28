@@ -60,13 +60,20 @@ const Header = () => {
             >
               Cronograma
             </Link>
-            <Link
-              to="/coment"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Comentário
-            </Link>
+
+            {estaLogado && (
+              <>
+                {role === "USUARIO" && (
+                  <Link
+                    to="/coment"
+                    className="nav-link"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Comentário
+                  </Link>
+                )}
+              </>
+            )}
 
             {!estaLogado && (
               <>
