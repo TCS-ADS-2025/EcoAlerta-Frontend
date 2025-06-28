@@ -1,0 +1,71 @@
+#left-side-login {
+  background-color: #95a868;
+  color: white;
+}
+
+#left-side-login h1 {
+  font-weight: 500;
+}
+
+#left-side-login p {
+  font-size: 20px;
+}
+
+#right-side-login {
+  overflow: hidden;
+}
+
+#right-side-login h2 {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+#login-form {
+  max-width: 350px;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+#logo {
+  max-width: 100%;
+  width: 250px;
+  height: auto;
+}
+
+#login-form .login-campos {
+  background-color: #f1f5f4;
+  height: 50px;
+  border-radius: 40px;
+}
+
+#login-form .login-campos input {
+  padding-inline-start: 5px;
+}
+
+#login-form .form-group {
+  position: relative;
+}
+
+#login-form .bi {
+  position: absolute;
+  color: #a0a0a0;
+}
+
+#login-form .btn {
+  font-size: 20px;
+  background-color: #95a868;
+  font-weight: 500;
+  border: none;
+  border-radius: 40px;
+  width: 130px;
+  height: 50px;
+}
+
+#login-form .links-login a {
+  text-decoration: none;
+  font-size: 12px;
+}
+
+#login-form .links a:hover {
+  text-decoration: underline;
+}
