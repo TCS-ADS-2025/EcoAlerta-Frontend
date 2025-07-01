@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { UserData } from "../../../types/UserData";
 import { Modal, Form } from "react-bootstrap";
 import Header from "../header/Header";
-import Footer from "../footer/Footer";
 import api from "../../../service/api";
 import { logout } from "../../../service/auth";
+import { formatarCEP } from '../../helpers/formatarCEP';
 import { BairroData } from "../../../types/BairroData";
 import Message from "../../alerts/Message";
 import ConfirmationModal from "../../ConfirmationModal";
@@ -161,7 +161,7 @@ const User = (): ReactElement => {
                       <strong>Email:</strong> {formData.email}
                     </li>
                     <li className="item-lista">
-                      <strong>CEP:</strong> {formData.endereco.cep}
+                      <strong>CEP:</strong> {formatarCEP(formData.endereco.cep || '')}
                     </li>
                     <li className="item-lista">
                       <strong>Cidade:</strong> {formData.endereco.localidade}
