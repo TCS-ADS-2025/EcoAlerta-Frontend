@@ -26,12 +26,13 @@ const About = (): ReactElement => {
             <h1>Bem-vindo ao Eco Alerta!</h1>
           </div>
 
-          <span className="about-span">
+          <div className="about-container">
             <img id="mundo-img" src={mundo} alt="planeta terra" />
-            Somos uma plataforma criada para ajudar você, cidadão de Criciúma,
-            a ficar por dentro dos dias certos da coleta seletiva no seu
-            bairro!
-          </span>
+            <p>Somos uma plataforma criada para ajudar você, cidadão de Criciúma,
+              a ficar por dentro dos dias certos da coleta seletiva no seu
+              bairro!
+            </p>
+          </div>
 
           <div className="register-now">
             <img src={lampada} alt="lampada" />
