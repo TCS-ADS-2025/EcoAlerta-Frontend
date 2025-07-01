@@ -83,13 +83,14 @@
 
 .card-grid {
   display: grid;
-  text-align: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, 350px);
   gap: 2rem;
+  justify-content: center;
   padding: 2rem;
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .card-green {
@@ -288,24 +289,35 @@
   }
 
   .card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    justify-items: center;
-    gap: 2rem;
-    padding: 2rem;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  align-items: stretch;
+}
 
-  .card-grid .card-title {
-    font-weight: bold;
-    font-size: 20px;
-  }
+.card-green {
+  background-color: #95a868;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;       
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  .card-grid .card-text {
-    font-size: 15px;
-  }
+.card-grid .card-title {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
 
-  .card-green {
-    width: 85%;
-  }
+.card-grid .card-text {
+  font-size: 15px;
+  text-align: center;
+}
 
   #container-3 {
     flex-direction: column;
@@ -344,28 +356,36 @@
     width: 250px;
   }
 
-  .card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    justify-items: center;
-    gap: 2rem;
-    padding: 2rem;
-  }
+ .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  align-items: stretch;
+}
 
-  #span-brown-2 {
-    width: 250px;
-  }
+.card-green {
+  background-color: #95a868;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;       
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  .card-green {
-    width: 95%;
-  }
+.card-grid .card-title {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
 
-  .card-grid .card-title {
-    font-size: 25px;
-  }
-
-  .card-grid .card-text {
-    font-size: 15px;
-  }
+.card-grid .card-text {
+  font-size: 15px;
+  text-align: center;
+}
 
   .banner {
     margin-left: 35px;
