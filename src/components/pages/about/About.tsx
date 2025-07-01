@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
-import "./About.css";
 import mundo from "../../../assets/mundo.png";
 import lampada from "../../../assets/lampada.png";
 import folha from "../../../assets/folha.png";
@@ -13,6 +11,7 @@ import aviso from "../../../assets/card-3/aviso.png";
 import info from "../../../assets/card-3/info.png";
 import lixeiras from "../../../assets/card-3/lixeiras.png";
 import megafone from "../../../assets/card-3/megafone.png";
+import "./About.css";
 
 const About = (): ReactElement => {
   return (

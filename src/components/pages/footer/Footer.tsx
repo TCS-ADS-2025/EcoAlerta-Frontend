@@ -1,5 +1,5 @@
-import "./Footer.css";
 import logo from "../../../assets/logo-branca.png"
+import "./Footer.css";
 
 const Footer = () => {
   return (
