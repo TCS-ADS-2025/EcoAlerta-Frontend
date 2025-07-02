@@ -20,9 +20,6 @@ api.interceptors.request.use(
     return response;
   },
   (error: AxiosError) => {
-    if ((error.response?.status === 401 || error.response?.status === 403) && error.config?.url !== "/auth/login") {
-      logout();
-    }
     return Promise.reject(error);
   }
 );

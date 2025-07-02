@@ -29,6 +29,22 @@ const Cadastro = (): ReactElement => {
 
   const [bairros, setBairros] = useState<BairroData[]>([]);
 
+  const buscarEnderecoPorCep = async (cep: string) => {
+    try {
+      const response = await api.get(`/consulta-cep/${cep}`);
+      const dados = response.data;
+
+      setFormData(prev => ({
+        ...prev,
+        logradouro: dados.logradouro || "",
+        localidade: dados.localidade || "Criciúma", 
+      }));
+    } catch (error) {
+      console.error("Erro ao buscar endereço pelo CEP:", error);
+      setError("CEP inválido ou não encontrado");
+    }
+  };
+
   useEffect(() => {
     const fetchBairros = async () => {
       try {
@@ -156,6 +172,7 @@ const Cadastro = (): ReactElement => {
                       name="cep"
                       value={formData.cep}
                       onChange={handleChange}
+                      onBlur={(e) => buscarEnderecoPorCep(e.target.value)}
                     />
                   </Form.Group>
                 </Col>

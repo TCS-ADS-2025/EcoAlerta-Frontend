@@ -22,26 +22,63 @@ const User = (): ReactElement => {
   const [bairros, setBairros] = useState<BairroData[]>([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [viaCepData, setViaCepData] = useState({
+    logradouro: "",
+    localidade: "",
+  });
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
   const handleDeleteClick = () => setShowDeleteConfirm(true);
   const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
 
+  const fetchUser = async () => {
+    try {
+      const response = await api.get("/usuarios/perfil");
+      setFormData(response.data);
+    } catch (error) {
+      console.log("Erro ao buscar informações de usuário:", error);
+      setError("Erro ao buscar informações de usuário");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await api.get("/usuarios/perfil");
-        setFormData(response.data);
-      } catch (error) {
-        console.log("Erro ao buscar informações de usuário:", error);
-        setError("Erro ao buscar informações de usuário");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchUser();
   }, []);
+
+  const buscarEnderecoPorCep = async (cep: string) => {
+    try {
+      const response = await api.get(`/consulta-cep/${cep}`);
+      const dados = response.data;
+
+      if (!formData) {
+        console.warn("formData está nulo, abortando atualização do endereço");
+        return;
+      }
+
+      setViaCepData({
+        logradouro: dados.logradouro || "",
+        localidade: "Criciúma",
+      });
+
+      setFormData({
+        ...formData,
+        endereco: {
+          ...formData.endereco,
+          cep: dados.cep,
+          logradouro: dados.logradouro || "",
+          localidade: "Criciúma", // fixo
+          bairroId: "",
+          nomeBairro: "",
+        },
+      });
+    } catch (error) {
+      console.error("Erro ao buscar endereço pelo CEP:", error);
+      setError("CEP inválido ou não encontrado");
+    }
+  }
 
   useEffect(() => {
     const fetchBairros = async () => {
@@ -101,6 +138,7 @@ const User = (): ReactElement => {
 
     try {
       await api.put(`/usuarios/atualizar/${formData.id}`, payload);
+      await fetchUser();
       setSuccess("Usuário atualizado com sucesso!");
       setShowModal(false);
     } catch (error) {
@@ -227,6 +265,7 @@ const User = (): ReactElement => {
                 name="cep"
                 value={formData?.endereco.cep}
                 onChange={handleChange}
+                onBlur={(e) => buscarEnderecoPorCep(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-2">
@@ -248,9 +287,8 @@ const User = (): ReactElement => {
               <Form.Label>Logradouro</Form.Label>
               <Form.Control
                 type="text"
-                name="logradouro"
                 value={formData?.endereco.logradouro}
-                onChange={handleChange}
+                readOnly
               />
             </Form.Group>
             <Form.Group className="mb-2">
