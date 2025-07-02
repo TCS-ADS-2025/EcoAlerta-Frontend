@@ -14,12 +14,12 @@ const Footer = () => {
           </a>
         </div>
         <div className="contact">
-          <i className="bi bi-telephone"></i>
-          <a href="#">Prefeitura</a>
+          <i className="bi bi-globe-americas"></i>
+          <a href="https://criciuma.webbrain.app.br/sites/156Brain/" target="_blank">Prefeitura</a>
         </div>
         <div className="contact">
           <i className="bi bi-telephone"></i>
-          <a href="https://api.whatsapp.com/send?phone=5548999010919">RACLI - Criciúma</a>
+          <a href="https://api.whatsapp.com/send?phone=5548999010919" target="_blank">RACLI - Criciúma</a>
         </div>
       </div>
     </footer>
