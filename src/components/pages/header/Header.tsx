@@ -21,7 +21,7 @@ const Header = () => {
       <nav className="navbar">
         <div className="navbar-content">
           <Link
-            to="/"
+            to="/sobre"
             className="navbar-logo"
             onClick={() => setIsMenuOpen(false)}
           >
@@ -40,21 +40,21 @@ const Header = () => {
 
           <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
             <Link
-              to="/about"
+              to="/sobre"
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
             >
               Sobre Nós
             </Link>
             <Link
-              to="/"
+              to="/conscientizacao"
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
             >
               Conscientização
             </Link>
             <Link
-              to="/timeline"
+              to="/cronograma"
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -63,22 +63,20 @@ const Header = () => {
 
             {estaLogado && (
               <>
-                {role === "USUARIO" && (
-                  <Link
-                    to="/coment"
-                    className="nav-link"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Comentário
-                  </Link>
-                )}
+                <Link
+                  to="/comentario"
+                  className="nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Comentário
+                </Link>
               </>
             )}
 
             {!estaLogado && (
               <>
                 <Link
-                  to="/register"
+                  to="/cadastro"
                   className="nav-link"
                   onClick={() => setIsMenuOpen(false)}
                 >

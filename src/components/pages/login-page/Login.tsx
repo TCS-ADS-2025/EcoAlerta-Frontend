@@ -47,7 +47,7 @@ const Login = (): ReactElement => {
 
         login(token, role);
         setSuccess("Login realizado com sucesso!");
-        setTimeout(() => navigate("/"), 2500);
+        setTimeout(() => navigate("/conscientizacao"), 2500);
       }
     } catch (err) {
       console.error("Erro ao realizar login:", err);
@@ -61,7 +61,7 @@ const Login = (): ReactElement => {
 
       {success && <Message type="success" message={success} onClose={() => setSuccess("")} />}
       {error && <Message type="error" message={error} onClose={() => setError("")} />}
-        
+
       <Row className="flex-grow-1 mt-0">
         <Col
           xs={12}
@@ -106,7 +106,7 @@ const Login = (): ReactElement => {
                 <i className="bi bi-lock top-50 start-0 translate-middle-y ms-3"></i>
                 <Form.Control
                   className="ps-5 login-campos"
-                  type="password" 
+                  type="password"
                   placeholder="Senha"
                   name="senha"
                   value={formData.senha}

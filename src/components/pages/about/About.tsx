@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
+import { estaAutenticado } from "../../../service/auth";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import mundo from "../../../assets/mundo.png";
@@ -14,6 +15,7 @@ import megafone from "../../../assets/card-3/megafone.png";
 import "./About.css";
 
 const About = (): ReactElement => {
+  const estaLogado = estaAutenticado();
   return (
     <>
       <Header />
@@ -56,7 +58,7 @@ const About = (): ReactElement => {
                 <Card.Text>
                   Alertas automáticos com as datas da coleta de recicláveis
                 </Card.Text>
-                <Link to="/register">
+                <Link to="/cadastro">
                   <button className="btn-card">Cadastre-se!</button>
                 </Link>
               </Card.Body>
@@ -70,7 +72,7 @@ const About = (): ReactElement => {
                 <Card.Text>
                   Dicas práticas sobre como separar o lixo corretamente
                 </Card.Text>
-                <Link to="/">
+                <Link to="/conscientizacao">
                   <button className="btn-card">Veja!</button>
                 </Link>
               </Card.Body>
@@ -84,7 +86,7 @@ const About = (): ReactElement => {
                 <Card.Text>
                   Informações atualizadas da Prefeitura sobre o serviço
                 </Card.Text>
-                <Link to="/timeline">
+                <Link to="/cronograma">
                   <button className="btn-card">Cronograma!</button>
                 </Link>
               </Card.Body>
@@ -96,7 +98,7 @@ const About = (): ReactElement => {
               <Card.Body>
                 <img src={megafone} alt="Ícone de aviso" />
                 <Card.Text>Opiniões dos cidadãos sobre o serviço</Card.Text>
-                <Link to="/coment">
+                <Link to={estaLogado ? "/comentario" : "/login"}>
                   <button className="btn-card">Comente!</button>
                 </Link>
               </Card.Body>
