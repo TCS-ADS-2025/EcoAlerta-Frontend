@@ -115,9 +115,8 @@ const Login = (): ReactElement => {
                 />
               </Form.Group>
 
-              <div className="d-flex justify-content-around mb-4 links-login">
-                <a href="register">Cadastrar-se</a>
-                <a href="#">Esqueci minha senha</a>
+              <div className="d-flex mb-4 links-login">
+                <a href="cadastro">Cadastrar-se</a>
               </div>
 
               <div className="d-flex justify-content-center">
