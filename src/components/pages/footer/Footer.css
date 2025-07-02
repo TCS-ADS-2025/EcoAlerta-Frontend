@@ -42,3 +42,24 @@ footer {
 .contact {
   padding-bottom: 5px;
 }
+
+/* Responsividade */
+@media (max-width: 767px) {
+  .logo {
+    height: 70px;
+    width: 70px;
+  }
+
+  footer p {
+    font-size: 10px;
+  }
+
+  .links {
+    font-size: 10px;
+  }
+
+  .links a {
+    font-size: 7px;
+  }
+
+}

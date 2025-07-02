@@ -11,12 +11,13 @@ import User from "../user-page/User";
 const AppRoutes = (): ReactElement => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/coment" element={<Coment />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/timeline" element={<Timeline />} />
+      <Route path="/" element={<About />} />
+      <Route path="/sobre" element={<About />} />
+      <Route path="/comentario" element={<Coment />} />
+      <Route path="/cadastro" element={<Register />} />
+      <Route path="/cronograma" element={<Timeline />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/about" element={<About />} />
+      <Route path="/conscientizacao" element={<Home />} />
       <Route path="/perfil" element={<User />} />
     </Routes>
   );

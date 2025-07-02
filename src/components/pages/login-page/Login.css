@@ -61,6 +61,12 @@
   height: 50px;
 }
 
+#login-form .links-login {
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 1rem;
+}
+
 #login-form .links-login a {
   text-decoration: none;
   font-size: 12px;

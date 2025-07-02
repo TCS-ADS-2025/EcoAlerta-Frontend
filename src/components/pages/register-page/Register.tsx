@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import api from "../../../service/api";
 import { cadastro } from "../../../service/auth";
-import { UserDataCadastro } from "../../../types/UserData"; 
+import { formatarCEP } from "../../helpers/formatarCEP";
+import { UserDataCadastro } from "../../../types/UserData";
 import { BairroData } from "../../../types/BairroData";
 import Header from "../header/Header";
 import Message from "../../alerts/Message";
@@ -43,10 +44,32 @@ const Cadastro = (): ReactElement => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "cep") {
+      setFormData({
+        ...formData,
+        cep: formatarCEP(value),
+      });
+    }
+    else if (name === "nomeCompleto") {
+      const somenteLetras = value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
+      setFormData({
+        ...formData,
+        nomeCompleto: somenteLetras,
+      });
+    }
+    else if (name === "numero") {
+      const somenteNumeros = value.replace(/\D/g, '');
+      setFormData({
+        ...formData,
+        numero: somenteNumeros,
+      });
+    }
+    else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,11 +77,11 @@ const Cadastro = (): ReactElement => {
     setLoading(true);
 
     if (!formData.nomeCompleto || !formData.email || !formData.cep || !formData.bairroId || !formData.senha) {
-        setError("Por favor, preencha todos os campos obrigatórios.")  
-        setLoading(false);
-        return;
-    } 
-    
+      setError("Por favor, preencha todos os campos obrigatórios.")
+      setLoading(false);
+      return;
+    }
+
     try {
       const endpoint = "/auth/register";
       const method = "post";
@@ -83,7 +106,7 @@ const Cadastro = (): ReactElement => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
-      
+
       {success && <Message type="success" message={success} onClose={() => setSuccess("")} />}
       {error && <Message type="error" message={error} onClose={() => setError("")} />}
 

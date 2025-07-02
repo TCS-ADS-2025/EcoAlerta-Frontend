@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { UserData } from "../../../types/UserData";
 import { Modal, Form } from "react-bootstrap";
 import Header from "../header/Header";
-import Footer from "../footer/Footer";
 import api from "../../../service/api";
 import { logout } from "../../../service/auth";
+import { formatarCEP } from '../../helpers/formatarCEP';
 import { BairroData } from "../../../types/BairroData";
 import Message from "../../alerts/Message";
 import ConfirmationModal from "../../ConfirmationModal";
+import logo from "../../../assets/logo-branca.png"
+import user from "../../../assets/user.png"
 import "./User.css";
 
 const User = (): ReactElement => {
@@ -132,54 +134,65 @@ const User = (): ReactElement => {
     <>
       <Header />
 
-      {success && (<Message type="success" message={success} onClose={() => setSuccess("")}/>)}
+      {success && (<Message type="success" message={success} onClose={() => setSuccess("")} />)}
       {error && (<Message type="error" message={error} onClose={() => setError("")} />)}
 
-      <div className="container-principal">
-        <div className="info-usuario">
-          {loading ? (
-            <p>Carregando dados...</p>
-          ) : formData ? (
-            <>
-              <h2>Perfil do Usuário</h2>
-              <ul className="list-group">
-                <li className="list-group-item">
-                  <strong>Nome:</strong> {formData.nomeCompleto}
-                </li>
-                <li className="list-group-item">
-                  <strong>Email:</strong> {formData.email}
-                </li>
-                <li className="list-group-item">
-                  <strong>CEP:</strong> {formData.endereco.cep}
-                </li>
-                <li className="list-group-item">
-                  <strong>Cidade:</strong> {formData.endereco.localidade}
-                </li>
-                <li className="list-group-item">
-                  <strong>Bairro:</strong> {formData.endereco.nomeBairro}
-                </li>
-                <li className="list-group-item">
-                  <strong>Logradouro:</strong> {formData.endereco.logradouro}
-                </li>
-                <li className="list-group-item">
-                  <strong>Número:</strong> {formData.endereco.numero}
-                </li>
-                <li className="list-group-item">
-                  <strong>Complemento:</strong> {formData.endereco.complemento}
-                </li>
-              </ul>
-              <div className="container-buttons">
-                <button className="btn btn-warning" onClick={handleOpenModal}>
-                  Editar
-                </button>
-                <button className="btn btn-danger" onClick={handleDeleteClick}>
-                  Excluir
-                </button>
-              </div>
-            </>
-          ) : (
-            <p>Erro ao carregar dados do usuário.</p>
-          )}
+      <div className="perfil-container">
+        <div className="d-flex flex-column lado-esquerdo">
+          <img id="logo-perfil" src={logo} alt="Logo Eco Alerta" />
+        </div>
+
+        <div className="lado-direito">
+          <div className="d-flex flex-column info-usuario">
+            {loading ? (
+              <p>Carregando dados...</p>
+            ) : formData ? (
+              <>
+                <div className="cabecalho-perfil">
+                  <img className="imagem-perfil" src={user} alt="Ícone de usuário" />
+                  <div className="nome-perfil">
+                    <p>{formData.nomeCompleto}</p>
+                  </div>
+                </div>
+
+                <div className="d-flex flex-column container-lista">
+                  <ul className="lista-dados">
+                    <li className="item-lista">
+                      <strong>Email:</strong> {formData.email}
+                    </li>
+                    <li className="item-lista">
+                      <strong>CEP:</strong> {formatarCEP(formData.endereco.cep || '')}
+                    </li>
+                    <li className="item-lista">
+                      <strong>Cidade:</strong> {formData.endereco.localidade}
+                    </li>
+                    <li className="item-lista">
+                      <strong>Bairro:</strong> {formData.endereco.nomeBairro}
+                    </li>
+                    <li className="item-lista">
+                      <strong>Logradouro:</strong> {formData.endereco.logradouro}
+                    </li>
+                    <li className="item-lista">
+                      <strong>Número:</strong> {formData.endereco.numero}
+                    </li>
+                    <li className="item-lista">
+                      <strong>Complemento:</strong> {formData.endereco.complemento}
+                    </li>
+                  </ul>
+                </div>
+                <div className="container-buttons">
+                  <button className="btn btn-warning btn-perfil" onClick={handleOpenModal}>
+                    Editar
+                  </button>
+                  <button className="btn btn-danger btn-perfil" onClick={handleDeleteClick}>
+                    Excluir
+                  </button>
+                </div>
+              </>
+            ) : (
+              <p>Erro ao carregar dados do usuário.</p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -280,8 +293,6 @@ const User = (): ReactElement => {
         cancelText="Não"
         confirmVariant="danger"
       />
-
-      <Footer />
     </>
   );
 };
