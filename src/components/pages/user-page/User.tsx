@@ -23,10 +23,7 @@ const User = (): ReactElement => {
   const [bairros, setBairros] = useState<BairroData[]>([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const [viaCepData, setViaCepData] = useState({
-    logradouro: "",
-    localidade: "",
-  });
+  const [viaCepData, setViaCepData] = useState({ logradouro: "", });
 
   const handleOpenModal = () => {
     setEditData(formData ? { ...formData } : null);
@@ -58,7 +55,7 @@ const User = (): ReactElement => {
       const dados = response.data;
 
       if (!editData) {
-        console.warn("editData está nulo, abortando atualização do endereço");
+        console.warn("Campos de edição nulo");
         return;
       }
 
@@ -69,15 +66,14 @@ const User = (): ReactElement => {
           endereco: {
             ...prev.endereco,
             cep: dados.cep || "",
-            logradouro: dados.logradouro || "",
-            localidade: "Criciúma",
+            logradouro: dados.logradouro || prev.endereco.logradouro,
+            localidade: "Criciúma"
           },
         };
       });
 
       setViaCepData({
         logradouro: dados.logradouro || "",
-        localidade: "Criciúma",
       });
 
     } catch (error) {
@@ -152,11 +148,12 @@ const User = (): ReactElement => {
       logradouro: editData.endereco.logradouro,
       numero: editData.endereco.numero,
       complemento: editData.endereco.complemento,
+      localidade: "Criciúma"
     };
 
     try {
       await api.put(`/usuarios/atualizar/${editData.id}`, payload);
-      setFormData(editData);
+      await fetchUser();
       setSuccess("Usuário atualizado com sucesso!");
       setShowModal(false);
     } catch (error) {
@@ -305,8 +302,9 @@ const User = (): ReactElement => {
               <Form.Label>Logradouro</Form.Label>
               <Form.Control
                 type="text"
+                name="logradouro"
                 value={editData?.endereco.logradouro}
-                readOnly
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Group className="mb-2">

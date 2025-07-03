@@ -37,7 +37,7 @@ const Cadastro = (): ReactElement => {
       setFormData(prev => ({
         ...prev,
         logradouro: dados.logradouro || "",
-        localidade: dados.localidade || "Criciúma", 
+        localidade: "Criciúma", 
       }));
     } catch (error) {
       console.error("Erro ao buscar endereço pelo CEP:", error);
