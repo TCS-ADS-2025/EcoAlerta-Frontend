@@ -3,6 +3,7 @@ import { Modal, Form } from "react-bootstrap";
 import { Bairro, CronogramaData } from "../../../types/CronogramaData";
 import api from "../../../service/api";
 import { getRole } from "../../../service/auth";
+import Message from "../../alerts/Message";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import "./Timeline.css";
@@ -15,6 +16,8 @@ const Timeline = (): ReactElement => {
   const [bairrosSelecionados, setBairrosSelecionados] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const diaColeta = ["SEGUNDA", "TERCA", "QUARTA", "QUINTA", "SEXTA", "SABADO"];
 
@@ -44,6 +47,13 @@ const Timeline = (): ReactElement => {
     fetchData();
   }, []);
 
+  const isBairroUsado = (bairroId: string): boolean => {
+    return Object.entries(cronograma).some(([dia, dados]) => {
+      if (dia === diaSelecionado) return false; 
+      return dados.bairros.some((b) => b.id === bairroId);
+    });
+  };
+
   const handleOpenModal = (dia: string) => {
     setDiaSelecionado(dia);
     setBairrosSelecionados(cronograma[dia]?.bairros.map((b) => b.id) || []);
@@ -67,10 +77,13 @@ const Timeline = (): ReactElement => {
   };
 
   const handleSubmit = async () => {
+    setError("");
+    setSuccess("");
     if (!diaSelecionado) return;
 
     const cronogramaDoDia = cronograma[diaSelecionado];
     const cronogramaId = cronogramaDoDia?.id;
+    let novoId = "";
 
     const payload = {
       diaSemana: diaSelecionado,
@@ -82,8 +95,9 @@ const Timeline = (): ReactElement => {
         await api.put(`/cronogramas/atualizar/${cronogramaId}`, payload);
       } else {
         const response = await api.post("/cronogramas/cadastrar", payload);
+        novoId = response.data.id;
       }
-      alert("Cronograma salvo com sucesso!");
+      setSuccess("Cronograma salvo com sucesso!");
 
       const bairrosAtualizados = todosBairros.filter((bairro) =>
         bairrosSelecionados.includes(bairro.id)
@@ -92,7 +106,7 @@ const Timeline = (): ReactElement => {
       setCronograma((prev) => ({
         ...prev,
         [diaSelecionado]: {
-          id: cronogramaId ?? "",
+          id: cronogramaId ?? novoId,
           diaSemana: diaSelecionado,
           bairros: bairrosAtualizados,
         },
@@ -101,7 +115,7 @@ const Timeline = (): ReactElement => {
       handleCloseModal();
     } catch (error) {
       console.error("Erro ao salvar cronograma:", error);
-      alert("Erro ao salvar cronograma.");
+      setError("Erro ao salvar cronograma.");
     }
   };
 
@@ -110,13 +124,13 @@ const Timeline = (): ReactElement => {
     const cronogramaId = cronogramaDoDia?.id;
 
     if (!cronogramaId) {
-      alert("Nenhum cronograma encontrado para este dia.");
+      setError("Nenhum cronograma encontrado para este dia.");
       return;
     }
 
     try {
       await api.delete(`/cronogramas/excluir/${cronogramaId}`);
-      alert("Cronograma excluído com sucesso!");
+      setSuccess("Cronograma excluído com sucesso!");
 
       setCronograma((prev) => {
         const novoEstado = { ...prev };
@@ -125,13 +139,17 @@ const Timeline = (): ReactElement => {
       });
     } catch (error) {
       console.error("Erro ao excluir cronograma:", error);
-      alert("Erro ao excluir cronograma.");
+      setError("Erro ao excluir cronograma.");
     }
   };
 
   return (
     <>
       <Header />
+
+      {success && <Message type="success" message={success} onClose={() => setSuccess("")} />}
+      {error && <Message type="error" message={error} onClose={() => setError("")} />}
+
       <div className="timeline-container">
         <table className="table tabela-cronograma table-bordered table-fixed text-center">
           <thead>
@@ -203,6 +221,7 @@ const Timeline = (): ReactElement => {
                 label={bairro.nomeBairro}
                 checked={bairrosSelecionados.includes(bairro.id)}
                 onChange={() => handleCheckboxChange(bairro.id)}
+                disabled={isBairroUsado(bairro.id)} 
               />
             ))}
           </Form>

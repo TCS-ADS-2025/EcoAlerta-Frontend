@@ -16,32 +16,71 @@ import "./User.css";
 const User = (): ReactElement => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<UserData | null>(null);
+  const [editData, setEditData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [bairros, setBairros] = useState<BairroData[]>([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [viaCepData, setViaCepData] = useState({ logradouro: "", });
 
-  const handleOpenModal = () => setShowModal(true);
+  const handleOpenModal = () => {
+    setEditData(formData ? { ...formData } : null);
+    setShowModal(true);
+  };
   const handleCloseModal = () => setShowModal(false);
   const handleDeleteClick = () => setShowDeleteConfirm(true);
   const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
 
+  const fetchUser = async () => {
+    try {
+      const response = await api.get("/usuarios/perfil");
+      setFormData(response.data);
+    } catch (error) {
+      console.log("Erro ao buscar informações de usuário:", error);
+      setError("Erro ao buscar informações de usuário");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await api.get("/usuarios/perfil");
-        setFormData(response.data);
-      } catch (error) {
-        console.log("Erro ao buscar informações de usuário:", error);
-        setError("Erro ao buscar informações de usuário");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchUser();
   }, []);
+
+  const buscarEnderecoPorCep = async (cep: string) => {
+    try {
+      const response = await api.get(`/consulta-cep/${cep}`);
+      const dados = response.data;
+
+      if (!editData) {
+        console.warn("Campos de edição nulo");
+        return;
+      }
+
+      setEditData(prev => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          endereco: {
+            ...prev.endereco,
+            cep: dados.cep || "",
+            logradouro: dados.logradouro || prev.endereco.logradouro,
+            localidade: "Criciúma"
+          },
+        };
+      });
+
+      setViaCepData({
+        logradouro: dados.logradouro || "",
+      });
+
+    } catch (error) {
+      console.error("Erro ao buscar endereço pelo CEP:", error);
+      setError("CEP inválido ou não encontrado");
+    }
+  };
 
   useEffect(() => {
     const fetchBairros = async () => {
@@ -57,50 +96,64 @@ const User = (): ReactElement => {
     fetchBairros();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    if (!formData) return;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    if (!editData) return;
 
     const { name, value } = e.target;
 
     if (name === "bairroId") {
-      setFormData({
-        ...formData,
+      setEditData({
+        ...editData,
         endereco: {
-          ...formData.endereco,
+          ...editData.endereco,
           bairroId: value,
         },
       });
-    } else if (name in formData.endereco) {
-      setFormData({
-        ...formData,
+    } else if (name === "cep") {
+      const somenteNumeros = value.replace(/\D/g, '');
+      setEditData(prev => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          endereco: {
+            ...prev.endereco,
+            cep: formatarCEP(somenteNumeros),
+          },
+        };
+      });
+    } else if (name in editData.endereco) {
+      setEditData({
+        ...editData,
         endereco: {
-          ...formData.endereco,
+          ...editData.endereco,
           [name]: value,
         },
       });
     } else {
-      setFormData({
-        ...formData,
+      setEditData({
+        ...editData,
         [name]: value,
       });
     }
   };
 
   const handleUpdate = async () => {
-    if (!formData) return;
+    if (!editData) return;
 
     const payload = {
-      nomeCompleto: formData.nomeCompleto,
-      email: formData.email,
-      cep: formData.endereco.cep,
-      bairroId: formData.endereco.bairroId,
-      logradouro: formData.endereco.logradouro,
-      numero: formData.endereco.numero,
-      complemento: formData.endereco.complemento,
+      nomeCompleto: editData.nomeCompleto,
+      email: editData.email,
+      cep: editData.endereco.cep,
+      bairroId: editData.endereco.bairroId,
+      logradouro: editData.endereco.logradouro,
+      numero: editData.endereco.numero,
+      complemento: editData.endereco.complemento,
+      localidade: "Criciúma"
     };
 
     try {
-      await api.put(`/usuarios/atualizar/${formData.id}`, payload);
+      await api.put(`/usuarios/atualizar/${editData.id}`, payload);
+      await fetchUser();
       setSuccess("Usuário atualizado com sucesso!");
       setShowModal(false);
     } catch (error) {
@@ -207,7 +260,7 @@ const User = (): ReactElement => {
               <Form.Control
                 type="text"
                 name="nomeCompleto"
-                value={formData?.nomeCompleto}
+                value={editData?.nomeCompleto}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -216,7 +269,7 @@ const User = (): ReactElement => {
               <Form.Control
                 type="email"
                 name="email"
-                value={formData?.email}
+                value={editData?.email}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -225,15 +278,16 @@ const User = (): ReactElement => {
               <Form.Control
                 type="text"
                 name="cep"
-                value={formData?.endereco.cep}
+                value={editData?.endereco.cep}
                 onChange={handleChange}
+                onBlur={(e) => buscarEnderecoPorCep(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-2">
               <Form.Label>Bairro</Form.Label>
               <Form.Select
                 name="bairroId"
-                value={formData?.endereco.bairroId}
+                value={editData?.endereco.bairroId}
                 onChange={handleChange}
               >
                 <option value="">Selecione o bairro</option>
@@ -249,7 +303,7 @@ const User = (): ReactElement => {
               <Form.Control
                 type="text"
                 name="logradouro"
-                value={formData?.endereco.logradouro}
+                value={editData?.endereco.logradouro}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -258,7 +312,7 @@ const User = (): ReactElement => {
               <Form.Control
                 type="text"
                 name="numero"
-                value={formData?.endereco.numero}
+                value={editData?.endereco.numero}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -267,7 +321,7 @@ const User = (): ReactElement => {
               <Form.Control
                 type="text"
                 name="complemento"
-                value={formData?.endereco.complemento}
+                value={editData?.endereco.complemento}
                 onChange={handleChange}
               />
             </Form.Group>
